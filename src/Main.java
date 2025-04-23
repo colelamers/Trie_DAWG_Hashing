@@ -7,26 +7,26 @@ public class Main {
          String epubFilePath = "/home/soren/eBooks/pg3069-images-3.epub";
          StringBuilder kBook = ReadBook.Read(epubFilePath);
          List<String> book = Arrays.asList(kBook.toString().split("\\."));
-         //Processing.Test_DefaultHash();         // works
-         //Processing.Test_CustomHash();          // works
-         //Processing.Test_PerfectHash();         // works
-         //Processing.Test_CuckooHash();
-         // Processing.Build_DefaultTrie(book);     // works
-         Processing.Build_CustomTrie(book);
-
-         Processing.Build_PerfectTrie(book);
-         // Processing.Build_CuckooTrie(book);
-         // Processing.Build_PerfectDAWG(book);
-         // Processing.Build_CuckooDAWG(book);
+         //Processing.Test_DefaultHash();   // works
+         // Processing.Build_DefaultTrie(book); // works
          // Processing.Build_DefaultDAWG(book);
+
+         //Processing.Build_CustomTrie(book);   // works
+         // Processing.Test_CustomHash();  // works
          // Processing.Build_CustomDAWG(book);
+
+         //Processing.Test_PerfectHash();   // works
+         Processing.Build_PerfectTrie(book);
+         // Processing.Build_PerfectDAWG(book);
+
+         //Processing.Test_CuckooHash();
+         // Processing.Build_CuckooTrie(book);
+         // Processing.Build_CuckooDAWG(book);
+
          // todo 1; default dawg
          // todo 1; serialize default dawg
 
-         // todo 1; custom trie
          // todo 1; custom dawg
-         // todo 1; serialize custom hash
-         // todo 1; serialize custom trie
          // todo 1; serialize custom dawg
 
          // todo 1; perfect trie
