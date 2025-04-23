@@ -8,7 +8,7 @@ public class CustomHashMap<K, V> implements Serializable {
     // Used for template and understanding purposes of the
     // HashMap data structure
     public static class Node<K, V> implements Serializable {
-        final K key;
+        K key;
         V value;
         Node<K, V> next; // Basically simple linked list to hash collision nodes
 
@@ -25,7 +25,6 @@ public class CustomHashMap<K, V> implements Serializable {
     public Node<K, V>[] buckets;
     private int size;
 
-    @SuppressWarnings("unchecked")
     public CustomHashMap() {
         buckets = new Node[INITIAL_CAPACITY];
         size = 0;
@@ -54,7 +53,7 @@ public class CustomHashMap<K, V> implements Serializable {
             curr = curr.next;
         }
 
-        // Prepend node, basically insert a index 0 and push head down
+        // Prepend node, basically insert an index 0 and push head down
         buckets[index] = new Node<>(key, value, head);
         ++size;
 
@@ -77,7 +76,7 @@ public class CustomHashMap<K, V> implements Serializable {
         }
 
         buckets[index] = new Node<>(key, value, head);
-        size++; // size is fine here because we reset it before resize()
+        ++size; // size is fine here because we reset it before resize()
     }
 
     public V get(K key) {
@@ -117,23 +116,28 @@ public class CustomHashMap<K, V> implements Serializable {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     private void resize() {
         Node<K, V>[] oldBuckets = buckets;
         buckets = new Node[oldBuckets.length * 2];
         size = 0;
 
+        // Iterate over oldBuckets,
+        // rehashing and inserting elements into new buckets
         for (Node<K, V> head : oldBuckets) {
-            int hash = hash(head.key);
-            Node<K, V> current = head;
-            while (current != null) {
-                Node<K, V> next = current.next; // save before modifying
-                putWithoutResize(current.key, current.value);
-                current = next;
+            // Ensure head is not null
+            if (head != null) {
+                Node<K, V> current = head;
+                while (current != null) {
+                    // save before modifying
+                    Node<K, V> next = current.next;
+                    // todo 2; probably can refactor this somehow
+                    // to avoid having basically the exact same function
+                    putWithoutResize(current.key, current.value);
+                    current = next;
+                }
             }
         }
     }
-
 
     public int size() {
         return size;

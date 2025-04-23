@@ -31,14 +31,13 @@ public class Processing {
         WriteAndLoad(trie, "./BinaryFiles/CustomHashTrie.bin");
     }
 
-    public static void Build_PerfectTrie(List<String> book) throws IOException, ClassNotFoundException {
-        /*
+    public static void Build_PerfectTrie(List<String> book) throws Exception {
         PerfectHashTrie trie = new PerfectHashTrie();
         for (String sentence : book) {
             trie.insert(Arrays.asList(sentence.split("[•—'\",”/|_=+@#<>{}.!?\\s]+")));
         }
+        trie.finalizeTrie();
         WriteAndLoad(trie, "./BinaryFiles/PerfectHashTrie.bin");
-        */
     }
 
     public static void Build_CuckooTrie(List<String> book) throws IOException, ClassNotFoundException {
@@ -46,7 +45,7 @@ public class Processing {
     }
 
     public static void Test_PerfectHash() throws Exception {
-        PerfectHashMap<Integer, String> intStringMap = new PerfectHashMap<Integer, String>();
+/*        PerfectHashMap<Integer, String> intStringMap = new PerfectHashMap<Integer, String>();
         for (int i = 1; i < 125000; ++i){
             try{
                 intStringMap.put(i, String.format("val-%d", i));
@@ -54,7 +53,7 @@ public class Processing {
             catch (Exception e){
 
             }
-        }
+        }*/
         //intStringMap.rebuild();
 
         PerfectHashMap<String, String> twoStringMap = new PerfectHashMap<String, String>();

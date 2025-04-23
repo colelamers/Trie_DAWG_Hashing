@@ -14,33 +14,28 @@ public class PerfectHashMap<K, V> implements Serializable {
         }
     }
 
-    private List<Entry<K, V>> entries;  // Raw key-value pairs
-    private List<Entry<K, V>> table;    // Perfect hash table
+    private List<Entry<K, V>> entries;
+    private List<Entry<K, V>> table;
     private int m;
     private int r;
     private int[] T;
-    private boolean isRebuilt = false;  // Flag to ensure rebuild is called before access
-
     public PerfectHashMap() {
         this.entries = new ArrayList<>();
         this.table = new ArrayList<>();
     }
 
     public void put(K key, V value) throws Exception {
-        entries.add(new Entry<>(key, value));
+        if (!entries.contains(key)){
+            entries.add(new Entry<>(key, value));
+        }
     }
 
     public void rebuild() throws Exception {
         if (entries.isEmpty()) {
-            throw new Exception("Cannot rebuild empty map");
+            return; // Empty trie means basically, you made an array of size 0.
         }
 
-        List<K> keys = new ArrayList<>();
-        for (Entry<K, V> entry : entries) {
-            keys.add(entry.key);
-        }
-
-        r = keys.size();
+        r = entries.size();
         m = r * 2;
         T = new int[m];
         Arrays.fill(T, 0);
@@ -51,9 +46,11 @@ public class PerfectHashMap<K, V> implements Serializable {
             buckets.set(i, new ArrayList<>());
         }
 
-        for (K key : keys) {
-            int index = computeHash(key, r);
-            buckets.get(index).add(key);
+        // todo 1; tbh, I don't thik I need to sort this...
+        // It's not time expensive but it IS redundant
+        for (Entry<K, V> entry : entries) {
+            int index = computeHash(entry.key, r);
+            buckets.get(index).add(entry.key);
         }
 
         // Sort buckets by size
@@ -61,7 +58,6 @@ public class PerfectHashMap<K, V> implements Serializable {
 
         // Find injective mapping for all buckets
         for (List<K> bucket : buckets) {
-            int count = 1;
             while (!findHashForBucket(bucket)){
                 // A limitation of how perfect hashes work is that
                 // if there is a significantly large n, it will cause
@@ -72,7 +68,6 @@ public class PerfectHashMap<K, V> implements Serializable {
                 m = (m * 2) > 0 ? m * 2 : Integer.MAX_VALUE - 1;
                 T = new int[m];
                 Arrays.fill(T, 0);
-                ++count;
             }
         }
 
@@ -85,7 +80,7 @@ public class PerfectHashMap<K, V> implements Serializable {
     }
 
     private boolean findHashForBucket(List<K> bucket) {
-        int MAX_ATTEMPTS = 100000;
+        int MAX_ATTEMPTS = 1000000;
         for (int i = 1; i < MAX_ATTEMPTS; ++i) {
             Set<Integer> positions = new HashSet<>();
             boolean isInjective = true;
@@ -110,6 +105,13 @@ public class PerfectHashMap<K, V> implements Serializable {
         return false;
     }
 
+    public List<K> getKeys() {
+        List<K> keys = new ArrayList<>();
+        for (Entry<K, V> entry : entries) {
+            keys.add(entry.key);
+        }
+        return keys;
+    }
 
     private int computeHash(K key, int r) {
         return Math.abs(key.hashCode()) % r;
@@ -119,25 +121,38 @@ public class PerfectHashMap<K, V> implements Serializable {
         return Math.abs(key.hashCode() + l) % m;
     }
 
-    public V locate(K key) {
-        if (!isRebuilt) {
-            throw new IllegalStateException("The map is not rebuilt. Call rebuild() first.");
+    public V get(K key){
+        return get(key, true);
+    }
+
+    public V get(K key, boolean whichTable) {
+        var useTable = table;
+
+        // This modification here of the "get" function allows for
+        // appending nodes in the entries list BEFORE they are placed
+
+        if (!whichTable){
+            useTable = entries;
+            for (int i = 0; i < useTable.size(); ++i) {
+                Entry<K, V> entry = useTable.get(i);
+                if (entry.key.toString().toUpperCase().equals(
+                        key.toString().toUpperCase())) {
+                    return entry.value; // Found match, return value
+                }
+            }
+        }
+        else{
+            int pos = computeHash(key, m);
+            Entry<K, V> entry = useTable.get(pos);
+            if (entry != null && entry.key.equals(key)) {
+                return entry.value;
+            }
         }
 
-        if (table.isEmpty()) return null;
-        int pos = computeHash(key, m);
-        Entry<K, V> entry = table.get(pos);
-        if (entry != null && entry.key.equals(key)) {
-            return entry.value;
-        }
         return null;
     }
 
     public void delete(K key) {
-        if (!isRebuilt) {
-            throw new IllegalStateException("The map is not rebuilt. Call rebuild() first.");
-        }
-
         int pos = computeHash(key, m);
         Entry<K, V> entry = table.get(pos);
         if (entry != null && entry.key.equals(key)) {
