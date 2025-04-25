@@ -1,3 +1,5 @@
+package Utilities;
+
 import java.io.*;
 
 public class BinaryFileUtility {

@@ -2,40 +2,40 @@ package HashMap;
 
 import java.io.Serializable;
 import java.util.*;
+import Utilities.Nodes.Node;
 
 public class PerfectHashMap<K, V> implements Serializable {
-    public static class Entry<K, V> implements Serializable {
-        K key;
-        V value;
-
-        Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    private List<Entry<K, V>> entries;
-    private List<Entry<K, V>> table;
+    private CustomHashMap<K, V> lookupTable;  // Use CustomHashMap for fast lookups
+    private List<Node<K, V>> nodeTable;
+    private List<Node<K, V>> hashTable;
     private int m;
     private int r;
     private int[] T;
+
+    // todo 1; so i think we need a bucket class, this contains the node and the
+    // hash function used to hash the item. we need to perform multiple hashes
+    // to perfeclty build this up. the issue is even if there is a small amount
+    // of key items, the fact that you must rebuild causes issues.
     public PerfectHashMap() {
-        this.entries = new ArrayList<>();
-        this.table = new ArrayList<>();
+        this.nodeTable = new ArrayList<>();
+        this.hashTable = new ArrayList<>();
+        this.lookupTable = new CustomHashMap<>();  // Initialize the CustomHashMap for lookups
     }
 
     public void put(K key, V value) throws Exception {
-        if (!entries.contains(key)){
-            entries.add(new Entry<>(key, value));
+        // Check if key exists using CustomHashMap for fast O(1) lookup
+        if (lookupTable.get(key) == null) {
+            nodeTable.add(new Node<>(key, value));
+            lookupTable.put(key, value);  // Insert into the lookupTable for fast access
         }
     }
 
     public void rebuild() throws Exception {
-        if (entries.isEmpty()) {
+        if (nodeTable.isEmpty()) {
             return; // Empty trie means basically, you made an array of size 0.
         }
 
-        r = entries.size();
+        r = nodeTable.size();
         m = r * 2;
         T = new int[m];
         Arrays.fill(T, 0);
@@ -48,13 +48,22 @@ public class PerfectHashMap<K, V> implements Serializable {
 
         // todo 1; tbh, I don't thik I need to sort this...
         // It's not time expensive but it IS redundant
-        for (Entry<K, V> entry : entries) {
-            int index = computeHash(entry.key, r);
-            buckets.get(index).add(entry.key);
+        for (Node<K, V> tNode : nodeTable) {
+            int index = computeHash(tNode.key, r);
+            buckets.get(index).add(tNode.key);
         }
 
-        // Sort buckets by size
-        buckets.sort((a, b) -> b.size() - a.size());
+        // Sort buckets by size to aid in finding
+        for (int i = 0; i < buckets.size() - 1; i++) {
+            for (int j = 0; j < buckets.size() - i - 1; j++) {
+                if (buckets.get(j).size() < buckets.get(j + 1).size()) {
+                    // Swap
+                    List<K> temp = buckets.get(j);
+                    buckets.set(j, buckets.get(j + 1));
+                    buckets.set(j + 1, temp);
+                }
+            }
+        }
 
         // Find injective mapping for all buckets
         for (List<K> bucket : buckets) {
@@ -71,11 +80,11 @@ public class PerfectHashMap<K, V> implements Serializable {
             }
         }
 
-        // Fill the hashtable
-        table = new ArrayList<>(Collections.nCopies(m, null));
-        for (Entry<K, V> entry : entries) {
-            int pos = computeHash(entry.key, m);
-            table.set(pos, entry);
+        // Fill the hashTable
+        this.hashTable = new ArrayList<>(Collections.nCopies(m, null));
+        for (Node<K, V> tNode : nodeTable) {
+            int pos = computeHash(tNode.key, m);
+            this.hashTable.set(pos, tNode);
         }
     }
 
@@ -101,14 +110,15 @@ public class PerfectHashMap<K, V> implements Serializable {
                 return true;
             }
         }
-        // Hash Not Found
+
+        // Return false if a valid hash isn't found and memory size exceeds limit
         return false;
     }
 
     public List<K> getKeys() {
         List<K> keys = new ArrayList<>();
-        for (Entry<K, V> entry : entries) {
-            keys.add(entry.key);
+        for (Node<K, V> tNode : nodeTable) {
+            keys.add(tNode.key);
         }
         return keys;
     }
@@ -118,7 +128,7 @@ public class PerfectHashMap<K, V> implements Serializable {
     }
 
     private int computeSubHash(K key, int l) {
-        return Math.abs(key.hashCode() + l) % m;
+        return Math.abs((key.hashCode() * 31 + l * 17)) % m;
     }
 
     public V get(K key){
@@ -126,26 +136,26 @@ public class PerfectHashMap<K, V> implements Serializable {
     }
 
     public V get(K key, boolean whichTable) {
-        var useTable = table;
+        // True means we want to pull from the rebuilt data structure
+        // False means we want to pull from the unbuilt data structure.
+        var useTable = this.hashTable;
 
         // This modification here of the "get" function allows for
-        // appending nodes in the entries list BEFORE they are placed
-
+        // appending nodeTable in the nodeTable list BEFORE they are hashed
         if (!whichTable){
-            useTable = entries;
+            useTable = nodeTable;
             for (int i = 0; i < useTable.size(); ++i) {
-                Entry<K, V> entry = useTable.get(i);
-                if (entry.key.toString().toUpperCase().equals(
-                        key.toString().toUpperCase())) {
-                    return entry.value; // Found match, return value
+                Node<K, V> tNode = useTable.get(i);
+                if (tNode.key.toString().equalsIgnoreCase(key.toString())) {
+                    return tNode.value;
                 }
             }
         }
         else{
             int pos = computeHash(key, m);
-            Entry<K, V> entry = useTable.get(pos);
-            if (entry != null && entry.key.equals(key)) {
-                return entry.value;
+            Node<K, V> tNode = useTable.get(pos);
+            if (tNode != null && tNode.key.equals(key)) {
+                return tNode.value;
             }
         }
 
@@ -154,12 +164,12 @@ public class PerfectHashMap<K, V> implements Serializable {
 
     public void delete(K key) {
         int pos = computeHash(key, m);
-        Entry<K, V> entry = table.get(pos);
-        if (entry != null && entry.key.equals(key)) {
+        Node<K, V> tNode = this.hashTable.get(pos);
+        if (tNode != null && tNode.key.equals(key)) {
             // Mark the position as empty by setting it to null
-            table.set(pos, null);
-            // Optionally, remove the entry from the `entries` list
-            entries.removeIf(e -> e.key.equals(key));
+            this.hashTable.set(pos, null);
+            // Optionally, remove the Node from the `nodeTable` list
+            nodeTable.removeIf(e -> e.key.equals(key));
         }
     }
 }

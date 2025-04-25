@@ -17,8 +17,6 @@ public class PerfectHashTrie implements Serializable {
                 continue;
             }
 
-            // todo 1; stuck here. need to somehow get the nodes. right now it's failing.
-            // can't really send back a Entry<K, V> object so I'm trying to think of how to do that.
             PerfectHashNode child = current.children.get(word, false);
 
             if (child == null) {
@@ -39,9 +37,7 @@ public class PerfectHashTrie implements Serializable {
             return;
         }
 
-        // todo 1; somehow right here, this is growing to larger during rebuild which makes no sense
-        // the root tries children has issues with generating hashcodes
-        node.children.rebuild();  // Rebuild this node's perfect hash map
+        node.children.rebuild();
 
         for (String key : node.children.getKeys()) {
             PerfectHashNode child = node.children.get(key);
