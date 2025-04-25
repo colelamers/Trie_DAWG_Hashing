@@ -37,9 +37,7 @@ public class PerfectHashTrie implements Serializable {
             return;
         }
 
-        // todo 1; somehow right here, this is growing to larger during rebuild which makes no sense
-        // the root tries children has issues with generating hashcodes
-        node.children.rebuild();  // Rebuild this node's perfect hash map
+        node.children.rebuild();
 
         for (String key : node.children.getKeys()) {
             PerfectHashNode child = node.children.get(key);

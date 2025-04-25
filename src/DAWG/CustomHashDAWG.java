@@ -9,11 +9,15 @@ public class CustomHashDAWG implements Serializable {
 
     public CustomHashDAWG() {}
 
+    // Insert List<String> only because typically you do not
+    // build up a Trie 1 by 1. Otherwise it's just a hashmap
     public void insert(List<String> words) {
         CustomHashNode current = root;
 
         for (String word : words) {
-            if (word.isEmpty()) continue;
+            if (word.isEmpty()) {
+                continue;
+            }
 
             CustomHashNode child = current.getChild(word);
 
@@ -26,7 +30,7 @@ public class CustomHashDAWG implements Serializable {
         }
     }
 
-    public class CustomHashNode implements Serializable {
+    public static class CustomHashNode implements Serializable {
         public String word;
         public CustomHashMap<String, CustomHashNode> children;
 

@@ -1,14 +1,13 @@
 package DAWG;
 
 import HashMap.PerfectHashMap;
+import Trie.PerfectHashTrie;
+
 import java.io.Serializable;
 import java.util.*;
 
 public class PerfectHashDAWG implements Serializable {
     public final PerfectHashNode root = new PerfectHashNode("");
-
-    // Used to identify and reuse identical subtrees (if minimization is needed)
-    private final Map<PerfectHashNode, PerfectHashNode> registry = new HashMap<>();
 
     public void insert(List<String> words) throws Exception {
         PerfectHashNode current = root;
@@ -23,6 +22,24 @@ public class PerfectHashDAWG implements Serializable {
             }
 
             current = child;
+        }
+    }
+
+    public void finalizeTrie() throws Exception {
+        dfsRebuild(root);
+    }
+
+    private void dfsRebuild(PerfectHashNode node) throws Exception {
+        if (node.children == null) {
+            return;
+        }
+
+        node.children.rebuild();
+        for (String key : node.children.getKeys()) {
+            PerfectHashNode child = node.children.get(key);
+            if (child != null) {
+                dfsRebuild(child);
+            }
         }
     }
 

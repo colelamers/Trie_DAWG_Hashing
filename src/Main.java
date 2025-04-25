@@ -7,32 +7,32 @@ public class Main {
         StringBuilder kBook = ReadBook.Read(epubFilePath);
         List<String> book = Arrays.asList(kBook.toString().split("\\."));
 
-        System.out.printf("Test_DefaultHash: ");
-        Processing.Test_DefaultHash(book);
-        System.out.printf("Test_CustomHash: ");
-        Processing.Test_CustomHash(book);
-        System.out.printf("Test_CuckooHash: ");
-        Processing.Test_CuckooHash(book);
-        //System.out.printf("Test_PerfectHash: "); // todo 1;
-        //Processing.Test_PerfectHash(book);
+        System.out.printf("\n___ Build_DefaultHash ___\n");
+        Processing.Build_DefaultHash(book);
+        System.out.printf("\n___ Build_CustomHash ___\n");
+        Processing.Build_CustomHash(book);
+        System.out.printf("\n___ Build_CuckooHash ___\n");
+        Processing.Build_CuckooHash(book);
+        System.out.printf("\n___ Test_PerfectHash ___\n");
+        //Processing.Test_PerfectHash(book);// todo 1;
 
-        System.out.printf("Build_DefaultTrie: ");
+        System.out.printf("\n___ Build_DefaultTrie ___\n");
         Processing.Build_DefaultTrie(book);
-        System.out.printf("Build_CustomTrie: ");
+        System.out.printf("\n___ Build_CustomTrie ___\n");
         Processing.Build_CustomTrie(book);
-        //System.out.printf("Build_CuckooTrie: "); // todo 1;
-        //Processing.Build_CuckooTrie(book);
-        System.out.printf("Build_PerfectTrie: ");
+        System.out.printf("\n___ Build_CuckooTrie ___\n");
+        //Processing.Build_CuckooTrie(book);// todo 1;
+        System.out.printf("\n___ Build_PerfectTrie ___\n");
         Processing.Build_PerfectTrie(book);
 
-        System.out.printf("Build_DefaultHashDAWG: ");
+        System.out.printf("\n___ Build_DefaultHashDAWG ___\n");
         Processing.Build_DefaultHashDAWG(book);
-        System.out.printf("Build_CustomHashDAWG: ");
+        System.out.printf("\n___ Build_CustomHashDAWG ___\n");
         Processing.Build_CustomHashDAWG(book);
-        //System.out.printf("Build_CuckooHashDAWG: "); // todo 1;
-        //Processing.Build_CuckooHashDAWG(book);
-        //System.out.printf("Build_PerfectHashDAWG: "); // todo 1; divide by zero
-        //Processing.Build_PerfectHashDAWG(book);
+        System.out.printf("\n___ Build_CuckooHashDAWG ___\n");
+        //Processing.Build_CuckooHashDAWG(book);// todo 1;
+        System.out.printf("\n___ Build_PerfectHashDAWG ___\n");
+        Processing.Build_PerfectHashDAWG(book);
 
     }
 }
