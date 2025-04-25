@@ -1,7 +1,6 @@
 package DAWG;
 
 import HashMap.PerfectHashMap;
-import Trie.PerfectHashTrie;
 
 import java.io.Serializable;
 import java.util.*;

@@ -113,16 +113,14 @@ public class CuckooHashMap<K, V> implements Serializable {
     }
 
     public V get(K key) {
-        int pos1 = hashFunctions.get(0).apply(key, tableSize);
+        int pos1 = Math.abs(hashFunctions.get(0).apply(key, tableSize)) % tableSize;  // Ensure non-negative index
         if (table1[pos1] != null && table1[pos1].key.equals(key)) {
             return table1[pos1].value;
         }
-
-        int pos2 = hashFunctions.get(1).apply(key, tableSize);
+        int pos2 = Math.abs(hashFunctions.get(1).apply(key, tableSize)) % tableSize;  // Ensure non-negative index
         if (table2[pos2] != null && table2[pos2].key.equals(key)) {
             return table2[pos2].value;
         }
-
         return null;
     }
 

@@ -12,25 +12,77 @@ public class PerfectHashMap<K, V> implements Serializable {
     private int r;
     private int[] T;
 
-    // todo 1; so i think we need a bucket class, this contains the node and the
-    // hash function used to hash the item. we need to perform multiple hashes
-    // to perfeclty build this up. the issue is even if there is a small amount
-    // of key items, the fact that you must rebuild causes issues.
     public PerfectHashMap() {
         this.nodeTable = new ArrayList<>();
         this.hashTable = new ArrayList<>();
-        this.lookupTable = new CustomHashMap<>();  // Initialize the CustomHashMap for lookups
+        this.lookupTable = new CustomHashMap<>();
     }
 
     public void put(K key, V value) throws Exception {
-        // Check if key exists using CustomHashMap for fast O(1) lookup
         if (lookupTable.get(key) == null) {
             nodeTable.add(new Node<>(key, value));
-            lookupTable.put(key, value);  // Insert into the lookupTable for fast access
+            lookupTable.put(key, value);
+        }
+    }
+    public void rebuild() throws Exception {
+        if (nodeTable.isEmpty()) {
+            return; // Empty trie means basically, you made an array of size 0.
+        }
+
+        r = nodeTable.size();
+        m = r * 2;
+        T = new int[m];
+        Arrays.fill(T, 0);
+        this.hashTable = new ArrayList<>(Collections.nCopies(m, null));
+
+        for (Node<K, V> tNode : nodeTable) {
+            int primaryHash = computeHash(tNode.key, m);
+            if (this.hashTable.get(primaryHash) == null) {
+                this.hashTable.set(primaryHash, tNode);
+                T[primaryHash] = 1;
+            } else {
+                // Collision detected, need to find an injective sub-hash
+                findInjectiveSubHash(tNode);
+            }
+        }
+
+        // Fill the hashTable
+        this.hashTable = new ArrayList<>(Collections.nCopies(m, null));
+        for (Node<K, V> tNode : nodeTable) {
+            int pos = computeHash(tNode.key, m);
+            this.hashTable.set(pos, tNode);
         }
     }
 
-    public void rebuild() throws Exception {
+    private void findInjectiveSubHash(Node<K, V> newNode) {
+        int MAX_ATTEMPTS = 1000000;
+        for (int l = 1; l < MAX_ATTEMPTS; ++l) {
+            int subHash = computeSubHash(newNode.key, l);
+            if (T[subHash] == 0) {
+                // Check for injectivity against existing sub-hashed elements
+                boolean isSubHashInjective = true;
+                for (Node<K, V> existingNode : nodeTable) {
+                    if (existingNode != newNode) {
+                        int existingPrimaryHash = computeHash(existingNode.key, m);
+                        if (computeHash(newNode.key, m) == existingPrimaryHash) { // Only check collisions of the same primary hash
+                            // If the existing node is also sub-hashed and occupies the current subHash, it's not injective
+                            if (hashTable.get(subHash) == existingNode) {
+                                isSubHashInjective = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (isSubHashInjective) {
+                    this.hashTable.set(subHash, newNode);
+                    T[subHash] = 1;
+                    return;
+                }
+            }
+        }
+    }
+/*    public void rebuild() throws Exception {
         if (nodeTable.isEmpty()) {
             return; // Empty trie means basically, you made an array of size 0.
         }
@@ -111,9 +163,10 @@ public class PerfectHashMap<K, V> implements Serializable {
             }
         }
 
-        // Return false if a valid hash isn't found and memory size exceeds limit
+        // Return false if a valid hash
+        // isn't found and memory size exceeds limit
         return false;
-    }
+    }*/
 
     public List<K> getKeys() {
         List<K> keys = new ArrayList<>();
@@ -166,10 +219,14 @@ public class PerfectHashMap<K, V> implements Serializable {
         int pos = computeHash(key, m);
         Node<K, V> tNode = this.hashTable.get(pos);
         if (tNode != null && tNode.key.equals(key)) {
-            // Mark the position as empty by setting it to null
             this.hashTable.set(pos, null);
-            // Optionally, remove the Node from the `nodeTable` list
-            nodeTable.removeIf(e -> e.key.equals(key));
+            for (int i = 0; i < nodeTable.size(); i++) {
+                Node<K, V> current = nodeTable.get(i);
+                if (current.key.equals(key)) {
+                    nodeTable.remove(i);
+                    break;
+                }
+            }
         }
     }
 }
