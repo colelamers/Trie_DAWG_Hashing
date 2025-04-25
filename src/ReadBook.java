@@ -10,8 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReadBook {
-// https://github.com/documentnode/epub4j
-    // todo 1;
+    // https://github.com/documentnode/epub4j
     public static StringBuilder Read(String path){
         StringBuilder bookAsString = new StringBuilder();
         try {
