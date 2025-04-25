@@ -1,48 +1,38 @@
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-     public static void main(String[] args) throws Exception {
-         String epubFilePath = "/home/soren/eBooks/pg3069-images-3.epub";
-         StringBuilder kBook = ReadBook.Read(epubFilePath);
-         List<String> book = Arrays.asList(kBook.toString().split("\\."));
-         //Processing.Test_DefaultHash();   // works
-         // Processing.Build_DefaultTrie(book); // works
-         // Processing.Build_DefaultDAWG(book);
+    public static void main(String[] args) throws Exception {
+        String epubFilePath = "/home/soren/eBooks/pg3069-images-3.epub";
+        StringBuilder kBook = ReadBook.Read(epubFilePath);
+        List<String> book = Arrays.asList(kBook.toString().split("\\."));
 
-         //Processing.Build_CustomTrie(book);   // works
-         // Processing.Test_CustomHash();  // works
-         // Processing.Build_CustomDAWG(book);
+        System.out.printf("Test_DefaultHash: ");
+        Processing.Test_DefaultHash(book);
+        System.out.printf("Test_CustomHash: ");
+        Processing.Test_CustomHash(book);
+        System.out.printf("Test_CuckooHash: ");
+        Processing.Test_CuckooHash(book);
+        //System.out.printf("Test_PerfectHash: "); // todo 1;
+        //Processing.Test_PerfectHash(book);
 
-         //Processing.Test_PerfectHash();   // works
-         Processing.Build_PerfectTrie(book);
-         // Processing.Build_PerfectDAWG(book);
+        System.out.printf("Build_DefaultTrie: ");
+        Processing.Build_DefaultTrie(book);
+        System.out.printf("Build_CustomTrie: ");
+        Processing.Build_CustomTrie(book);
+        //System.out.printf("Build_CuckooTrie: "); // todo 1;
+        //Processing.Build_CuckooTrie(book);
+        System.out.printf("Build_PerfectTrie: ");
+        Processing.Build_PerfectTrie(book);
 
-         //Processing.Test_CuckooHash();
-         // Processing.Build_CuckooTrie(book);
-         // Processing.Build_CuckooDAWG(book);
+        System.out.printf("Build_DefaultHashDAWG: ");
+        Processing.Build_DefaultHashDAWG(book);
+        System.out.printf("Build_CustomHashDAWG: ");
+        Processing.Build_CustomHashDAWG(book);
+        //System.out.printf("Build_CuckooHashDAWG: "); // todo 1;
+        //Processing.Build_CuckooHashDAWG(book);
+        //System.out.printf("Build_PerfectHashDAWG: "); // todo 1; divide by zero
+        //Processing.Build_PerfectHashDAWG(book);
 
-         // todo 1; default dawg
-         // todo 1; serialize default dawg
-
-         // todo 1; custom dawg
-         // todo 1; serialize custom dawg
-
-         // todo 1; perfect trie
-         // todo 1; perfect dawg
-         // todo 1; serialize perfect hash
-         // todo 1; serialize perfect trie
-         // todo 1; serialize perfect dawg
-
-         // todo 1; cuckoo hashmap
-         // todo 1; cuckoo trie
-         // todo 1; cuckoo dawg
-         // todo 1; serialize cuckoo hash
-         // todo 1; serialize cuckoo trie
-         // todo 1; serialize cuckoo dawg
-
-         // todo 1; setup test data to read in
-         // todo 1; create tests
     }
 }

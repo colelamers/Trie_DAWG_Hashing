@@ -2,22 +2,9 @@ package HashMap;
 
 import java.io.Serializable;
 import java.util.Objects;
+import Utilities.Nodes.Node;
 
 public class CustomHashMap<K, V> implements Serializable {
-
-    // Used for template and understanding purposes of the
-    // HashMap data structure
-    public static class Node<K, V> implements Serializable {
-        K key;
-        V value;
-        Node<K, V> next; // Basically simple linked list to hash collision nodes
-
-        Node(K key, V value, Node<K, V> next) {
-            this.key = key;
-            this.value = value;
-            this.next = next;
-        }
-    }
 
     // Base "array" size
     private static final int INITIAL_CAPACITY = 16; // Start Size of array

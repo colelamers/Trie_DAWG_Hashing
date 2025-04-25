@@ -17,8 +17,6 @@ public class PerfectHashTrie implements Serializable {
                 continue;
             }
 
-            // todo 1; stuck here. need to somehow get the nodes. right now it's failing.
-            // can't really send back a Entry<K, V> object so I'm trying to think of how to do that.
             PerfectHashNode child = current.children.get(word, false);
 
             if (child == null) {
