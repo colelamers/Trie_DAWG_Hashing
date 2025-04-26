@@ -1,59 +1,57 @@
 package DAWG;
 
 import HashMap.PerfectHashMap;
-
 import java.io.Serializable;
 import java.util.*;
+public class PerfectHashDAWG<K> implements Serializable {
+    public PerfectHashMap<K, PerfectHashNode<K>> root = new PerfectHashMap<K, PerfectHashNode<K>> ();
 
-public class PerfectHashDAWG implements Serializable {
-    public final PerfectHashNode root = new PerfectHashNode("");
+    public PerfectHashDAWG() {}
 
-    public void insert(List<String> words) throws Exception {
-        PerfectHashNode current = root;
-
-        for (String word : words) {
-            if (word.isEmpty()) continue;
-
-            PerfectHashNode child = current.children.get(word, false);
-            if (child == null) {
-                child = new PerfectHashNode(word);
-                current.insertChild(word, child);
-            }
-
-            current = child;
-        }
-    }
-
-    public void finalizeTrie() throws Exception {
-        dfsRebuild(root);
-    }
-
-    private void dfsRebuild(PerfectHashNode node) throws Exception {
-        if (node.children == null) {
+    public void insert(List<K> nodes) throws Exception {
+        if (nodes.isEmpty()){
             return;
         }
 
-        node.children.rebuild();
-        for (String key : node.children.getKeys()) {
-            PerfectHashNode child = node.children.get(key);
-            if (child != null) {
-                dfsRebuild(child);
+        // Perform gets with false flag because we need to subordinate
+        // the nodes before rebuilding the hashmap.
+        K nodeAtZero = nodes.get(0);
+        PerfectHashNode<K> current = root.get(nodeAtZero, false);
+        if (current == null) {
+            current = new PerfectHashNode<>(nodeAtZero);
+            root.put(nodeAtZero, current);
+        }
+
+        for (int i = 1; i < nodes.size(); ++i) {
+            K nodeAtI = nodes.get(i);
+            if (nodeAtI.equals("other")){
+                System.out.print("");
             }
+            int childIndex = current.getChildIndex(nodeAtI);
+            if (childIndex == -1) {
+                current.children.add(nodeAtI);
+
+                if (root.get(nodeAtI, false) == null) {
+                    root.put(nodeAtI, new PerfectHashNode<>(nodeAtI));
+                }
+            }
+
+            // Always move current to the existing node
+            current = root.get(nodeAtI, false);
         }
     }
 
-    public static class PerfectHashNode implements Serializable {
-        public PerfectHashMap<String, PerfectHashNode> children = new PerfectHashMap<String, PerfectHashNode>();
-        public String word;
+    public static class PerfectHashNode<K> implements Serializable {
+        public K node;
+        public ArrayList<K> children = new ArrayList<>();
 
-        public PerfectHashNode(String word) {
-            this.word = word;
+        public PerfectHashNode(K word) {
+            this.node = word;
+            this.children = new ArrayList<K>();
         }
 
-        public void insertChild(String key, PerfectHashNode child) throws Exception {
-            if (children.get(key, false) == null) {
-                children.put(key, child);
-            }
+        public int getChildIndex(K key) {
+            return children.indexOf(key);
         }
     }
 }

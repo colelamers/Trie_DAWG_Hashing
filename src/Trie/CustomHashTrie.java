@@ -5,7 +5,7 @@ import java.util.*;
 import HashMap.CustomHashMap;
 
 public class CustomHashTrie implements Serializable {
-    public final CustomHashNode root = new CustomHashNode("");
+    public CustomHashNode root = new CustomHashNode("");
 
     public CustomHashTrie() {
     }
@@ -25,7 +25,7 @@ public class CustomHashTrie implements Serializable {
         }
     }
 
-    public class CustomHashNode implements Serializable {
+    public static class CustomHashNode implements Serializable {
         public CustomHashMap<String, CustomHashNode> children;
         public String word;
 

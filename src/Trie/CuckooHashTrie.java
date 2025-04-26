@@ -4,10 +4,10 @@ import HashMap.CuckooHashMap;
 import java.io.Serializable;
 import java.util.List;
 
-public class CuckooTrie implements Serializable {
-    public final CuckooNode root = new CuckooNode("");
+public class CuckooHashTrie implements Serializable {
+    public CuckooNode root = new CuckooNode("");
 
-    public CuckooTrie() {}
+    public CuckooHashTrie() {}
 
     public void insert(List<String> words) throws Exception {
         CuckooNode current = root;

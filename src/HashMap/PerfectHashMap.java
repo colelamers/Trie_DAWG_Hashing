@@ -6,171 +6,80 @@ import Utilities.Nodes.Node;
 
 public class PerfectHashMap<K, V> implements Serializable {
     private CustomHashMap<K, V> lookupTable;  // Use CustomHashMap for fast lookups
-    private List<Node<K, V>> nodeTable;
-    private List<Node<K, V>> hashTable;
-    private int m;
-    private int r;
-    private int[] T;
+    private List<Node<K, V>> storeTable;
+    private List<Node<K, V>> rebuiltTable; //
+    private int m; // Size of the hash table
+    private int r; // Number of nodes in the table
+    private int[] T; // Marked positions for injectivity (used to track collisions)
+    private List<Integer> knownSubHashSeeds = new ArrayList<Integer>();
 
     public PerfectHashMap() {
-        this.nodeTable = new ArrayList<>();
-        this.hashTable = new ArrayList<>();
+        this.storeTable = new ArrayList<>();
+        this.rebuiltTable = new ArrayList<>();
         this.lookupTable = new CustomHashMap<>();
     }
 
     public void put(K key, V value) throws Exception {
         if (lookupTable.get(key) == null) {
-            nodeTable.add(new Node<>(key, value));
+            storeTable.add(new Node<>(key, value));
             lookupTable.put(key, value);
         }
     }
+
     public void rebuild() throws Exception {
-        if (nodeTable.isEmpty()) {
-            return; // Empty trie means basically, you made an array of size 0.
+        if (storeTable.isEmpty()) {
+            return; // Empty table means nothing to hash
         }
 
-        r = nodeTable.size();
-        m = r * 2;
+        r = storeTable.size();
+        m = r * 2; // Initial size, can be adjusted if needed
         T = new int[m];
-        Arrays.fill(T, 0);
-        this.hashTable = new ArrayList<>(Collections.nCopies(m, null));
+        Arrays.fill(T, 0); // Fill T with 0 to mark unoccupied slots
+        this.rebuiltTable = new ArrayList<>(Collections.nCopies(m, null));
 
-        for (Node<K, V> tNode : nodeTable) {
+        Map<Integer, List<Node<K, V>>> buckets = new HashMap<>();
+        for (Node<K, V> tNode : storeTable) {
             int primaryHash = computeHash(tNode.key, m);
-            if (this.hashTable.get(primaryHash) == null) {
-                this.hashTable.set(primaryHash, tNode);
-                T[primaryHash] = 1;
-            } else {
-                // Collision detected, need to find an injective sub-hash
-                findInjectiveSubHash(tNode);
+            List<Node<K, V>> bucket = buckets.get(primaryHash);
+            if (bucket == null) {
+                bucket = new ArrayList<>();
+                buckets.put(primaryHash, bucket);
             }
+            bucket.add(tNode);
         }
 
-        // Fill the hashTable
-        this.hashTable = new ArrayList<>(Collections.nCopies(m, null));
-        for (Node<K, V> tNode : nodeTable) {
-            int pos = computeHash(tNode.key, m);
-            this.hashTable.set(pos, tNode);
+        for (var entry : buckets.entrySet()) {
+            List<Node<K, V>> bucket = entry.getValue();
+            // No collision, just place it in the rebuiltTable
+            Node<K, V> tNode = bucket.get(0);
+            int hash = computeHash(tNode.key, m);
+            if (T[hash] == 0) {
+                this.rebuiltTable.set(hash, tNode);
+                T[hash] = 1;
+            }
+            findInjectiveSubHash(bucket);
         }
     }
 
-    private void findInjectiveSubHash(Node<K, V> newNode) {
+    private void findInjectiveSubHash(List<Node<K, V>> bucket) {
         int MAX_ATTEMPTS = 1000000;
-        for (int l = 1; l < MAX_ATTEMPTS; ++l) {
-            int subHash = computeSubHash(newNode.key, l);
-            if (T[subHash] == 0) {
-                // Check for injectivity against existing sub-hashed elements
-                boolean isSubHashInjective = true;
-                for (Node<K, V> existingNode : nodeTable) {
-                    if (existingNode != newNode) {
-                        int existingPrimaryHash = computeHash(existingNode.key, m);
-                        if (computeHash(newNode.key, m) == existingPrimaryHash) { // Only check collisions of the same primary hash
-                            // If the existing node is also sub-hashed and occupies the current subHash, it's not injective
-                            if (hashTable.get(subHash) == existingNode) {
-                                isSubHashInjective = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (isSubHashInjective) {
-                    this.hashTable.set(subHash, newNode);
+        for (Node<K, V> newNode : bucket) {
+            for (int i = 1; i < MAX_ATTEMPTS; ++i) {
+                int subHash = computeSubHash(newNode.key, i);
+                if (T[subHash] == 0) {
+                    // No collision, we can safely add this node
+                    knownSubHashSeeds.add(subHash);
+                    this.rebuiltTable.set(subHash, newNode);
                     T[subHash] = 1;
-                    return;
+                    break; // Exit the sub-hash loop
                 }
             }
         }
     }
-/*    public void rebuild() throws Exception {
-        if (nodeTable.isEmpty()) {
-            return; // Empty trie means basically, you made an array of size 0.
-        }
-
-        r = nodeTable.size();
-        m = r * 2;
-        T = new int[m];
-        Arrays.fill(T, 0);
-
-        // Split into buckets
-        List<List<K>> buckets = new ArrayList<>(Collections.nCopies(r, null));
-        for (int i = 0; i < r; i++) {
-            buckets.set(i, new ArrayList<>());
-        }
-
-        // todo 1; tbh, I don't thik I need to sort this...
-        // It's not time expensive but it IS redundant
-        for (Node<K, V> tNode : nodeTable) {
-            int index = computeHash(tNode.key, r);
-            buckets.get(index).add(tNode.key);
-        }
-
-        // Sort buckets by size to aid in finding
-        for (int i = 0; i < buckets.size() - 1; i++) {
-            for (int j = 0; j < buckets.size() - i - 1; j++) {
-                if (buckets.get(j).size() < buckets.get(j + 1).size()) {
-                    // Swap
-                    List<K> temp = buckets.get(j);
-                    buckets.set(j, buckets.get(j + 1));
-                    buckets.set(j + 1, temp);
-                }
-            }
-        }
-
-        // Find injective mapping for all buckets
-        for (List<K> bucket : buckets) {
-            while (!findHashForBucket(bucket)){
-                // A limitation of how perfect hashes work is that
-                // if there is a significantly large n, it will cause
-                // the bucket size to overflow. Meaning that you cannot
-                // make the hashmap any larger due to memory limitations.
-                // max-1 is basically the final check. If it can't fit
-                // in that sized bucket, it's way too large.
-                m = (m * 2) > 0 ? m * 2 : Integer.MAX_VALUE - 1;
-                T = new int[m];
-                Arrays.fill(T, 0);
-            }
-        }
-
-        // Fill the hashTable
-        this.hashTable = new ArrayList<>(Collections.nCopies(m, null));
-        for (Node<K, V> tNode : nodeTable) {
-            int pos = computeHash(tNode.key, m);
-            this.hashTable.set(pos, tNode);
-        }
-    }
-
-    private boolean findHashForBucket(List<K> bucket) {
-        int MAX_ATTEMPTS = 1000000;
-        for (int i = 1; i < MAX_ATTEMPTS; ++i) {
-            Set<Integer> positions = new HashSet<>();
-            boolean isInjective = true;
-
-            for (K key : bucket) {
-                int position = computeSubHash(key, i);
-                if (T[position] == 1 || !positions.add(position)) {
-                    isInjective = false;
-                    break;
-                }
-            }
-
-            if (isInjective) {
-                for (K key : bucket) {
-                    int position = computeSubHash(key, i);
-                    T[position] = 1;
-                }
-                return true;
-            }
-        }
-
-        // Return false if a valid hash
-        // isn't found and memory size exceeds limit
-        return false;
-    }*/
 
     public List<K> getKeys() {
         List<K> keys = new ArrayList<>();
-        for (Node<K, V> tNode : nodeTable) {
+        for (Node<K, V> tNode : storeTable) {
             keys.add(tNode.key);
         }
         return keys;
@@ -180,53 +89,53 @@ public class PerfectHashMap<K, V> implements Serializable {
         return Math.abs(key.hashCode()) % r;
     }
 
-    private int computeSubHash(K key, int l) {
-        return Math.abs((key.hashCode() * 31 + l * 17)) % m;
+    private int computeSubHash(K key, int seed) {
+        return Math.abs((key.hashCode() * 31 + seed * 17)) % m;
     }
 
-    public V get(K key){
+    public V get(K key) {
         return get(key, true);
     }
 
-    public V get(K key, boolean whichTable) {
-        // True means we want to pull from the rebuilt data structure
-        // False means we want to pull from the unbuilt data structure.
-        var useTable = this.hashTable;
+    public V get(K key, boolean useRebuilt) {
+        // If useRebuilt is true, use the rebuiltTable; otherwise, use storeTable
+        var useTable = useRebuilt ? this.rebuiltTable : this.storeTable;
 
-        // This modification here of the "get" function allows for
-        // appending nodeTable in the nodeTable list BEFORE they are hashed
-        if (!whichTable){
-            useTable = nodeTable;
-            for (int i = 0; i < useTable.size(); ++i) {
-                Node<K, V> tNode = useTable.get(i);
-                if (tNode.key.toString().equalsIgnoreCase(key.toString())) {
-                    return tNode.value;
-                }
-            }
-        }
-        else{
+        // If we are using the rebuilt rebuiltTable, check primary hash first
+        if (useRebuilt) {
             int pos = computeHash(key, m);
             Node<K, V> tNode = useTable.get(pos);
             if (tNode != null && tNode.key.equals(key)) {
                 return tNode.value;
+            } else {
+                // Try sub-hashing (check the seed stored in the node)
+                for (int i = 0; i < knownSubHashSeeds.size(); ++i) {
+                    Node<K, V> maybeNode = useTable.get(knownSubHashSeeds.get(i));
+                    if (maybeNode != null && maybeNode.key.equals(key)) {
+                        return maybeNode.value;
+                    }
+                }
+            }
+        } else {
+            // If not using the rebuilt table,
+            // just search in storeTable (no sub-hashing)
+            for (Node<K, V> tNode : useTable) {
+                if (tNode.key.equals(key)) {
+                    return tNode.value;
+                }
             }
         }
 
-        return null;
+        return null; // Not found
     }
 
     public void delete(K key) {
         int pos = computeHash(key, m);
-        Node<K, V> tNode = this.hashTable.get(pos);
+        Node<K, V> tNode = this.rebuiltTable.get(pos);
         if (tNode != null && tNode.key.equals(key)) {
-            this.hashTable.set(pos, null);
-            for (int i = 0; i < nodeTable.size(); i++) {
-                Node<K, V> current = nodeTable.get(i);
-                if (current.key.equals(key)) {
-                    nodeTable.remove(i);
-                    break;
-                }
-            }
+            this.rebuiltTable.set(pos, null);
+            // Remove from storeTable as well
+            storeTable.removeIf(node -> node.key.equals(key));
         }
     }
 }

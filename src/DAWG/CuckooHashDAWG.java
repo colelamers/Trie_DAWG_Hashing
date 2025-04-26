@@ -3,45 +3,53 @@ package DAWG;
 import HashMap.CuckooHashMap;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CuckooHashDAWG implements Serializable {
-    public final CuckooNode root = new CuckooNode("");
+public class CuckooHashDAWG<K> implements Serializable {
+    public CuckooHashMap<K, CuckooHashNode<K>> root = new CuckooHashMap<>();
 
     public CuckooHashDAWG() {}
 
-    public void insert(List<String> words) throws Exception {
-        CuckooNode current = root;
+    public void insert(List<K> nodes) {
+        if (nodes.isEmpty()){
+            return;
+        }
 
-        for (String word : words) {
-            if (word.isEmpty()) continue;
+        K nodeAtZero = nodes.get(0);
+        CuckooHashNode<K> current = root.get(nodeAtZero);
+        if (current == null) {
+            current = new CuckooHashNode<>(nodeAtZero);
+            root.put(nodeAtZero, current);
+        }
 
-            CuckooNode child = current.getChild(word);
+        for (int i = 1; i < nodes.size(); ++i) {
+            K nodeAtI = nodes.get(i);
+            int childIndex = current.getChildIndex(nodeAtI);
+            if (childIndex == -1) {
+                current.children.add(nodeAtI);
 
-            if (child == null) {
-                child = new CuckooNode(word);
-                current.insertChild(word, child);
+                if (root.get(nodeAtI) == null) {
+                    root.put(nodeAtI, new CuckooHashNode<>(nodeAtI));
+                }
             }
 
-            current = child;
+            // Always move current to the existing node
+            current = root.get(nodeAtI);
         }
     }
 
-    public static class CuckooNode implements Serializable {
-        public String word;
-        public CuckooHashMap<String, CuckooNode> children;
+    public static class CuckooHashNode<K> implements Serializable {
+        public K node;
+        public ArrayList<K> children = new ArrayList<>();
 
-        public CuckooNode(String word) {
-            this.word = word;
-            this.children = new CuckooHashMap<>();
+        public CuckooHashNode(K word) {
+            this.node = word;
+            this.children = new ArrayList<K>();
         }
 
-        public void insertChild(String key, CuckooNode child) throws Exception {
-            children.put(key, child);
-        }
-
-        public CuckooNode getChild(String key) {
-            return children.get(key);
+        public int getChildIndex(K key) {
+            return children.indexOf(key);
         }
     }
 }

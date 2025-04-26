@@ -1,50 +1,54 @@
 package DAWG;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import HashMap.CustomHashMap;
 
-public class CustomHashDAWG implements Serializable {
-    public final CustomHashNode root = new CustomHashNode("");
+public class CustomHashDAWG<K> implements Serializable {
+    public CustomHashMap<K, CustomHashNode<K>> root = new CustomHashMap<>();
 
     public CustomHashDAWG() {}
 
-    // Insert List<String> only because typically you do not
-    // build up a Trie 1 by 1. Otherwise it's just a hashmap
-    public void insert(List<String> words) {
-        CustomHashNode current = root;
+    public void insert(List<K> nodes) {
+        if (nodes.isEmpty()){
+            return;
+        }
 
-        for (String word : words) {
-            if (word.isEmpty()) {
-                continue;
+        K nodeAtZero = nodes.get(0);
+        CustomHashNode<K> current = root.get(nodeAtZero);
+        if (current == null) {
+            current = new CustomHashNode<>(nodeAtZero);
+            root.put(nodeAtZero, current);
+        }
+
+        for (int i = 1; i < nodes.size(); ++i) {
+            K nodeAtI = nodes.get(i);
+            int childIndex = current.getChildIndex(nodeAtI);
+            if (childIndex == -1) {
+                current.children.add(nodeAtI);
+
+                if (root.get(nodeAtI) == null) {
+                    root.put(nodeAtI, new CustomHashNode<>(nodeAtI));
+                }
             }
 
-            CustomHashNode child = current.getChild(word);
-
-            if (child == null) {
-                child = new CustomHashNode(word);
-                current.insertChild(word, child);
-            }
-
-            current = child;
+            // Always move current to the existing node
+            current = root.get(nodeAtI);
         }
     }
 
-    public static class CustomHashNode implements Serializable {
-        public String word;
-        public CustomHashMap<String, CustomHashNode> children;
+    public static class CustomHashNode<K> implements Serializable {
+        public K node;
+        public ArrayList<K> children = new ArrayList<>();
 
-        public CustomHashNode(String word) {
-            this.word = word;
-            this.children = new CustomHashMap<>();
+        public CustomHashNode(K word) {
+            this.node = word;
+            this.children = new ArrayList<K>();
         }
 
-        public void insertChild(String key, CustomHashNode child) {
-            children.put(key, child);
-        }
-
-        public CustomHashNode getChild(String key) {
-            return children.get(key);
+        public int getChildIndex(K key) {
+            return children.indexOf(key);
         }
     }
 }

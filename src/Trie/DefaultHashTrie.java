@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class DefaultHashTrie implements Serializable {
-    public final DefaultHashNode root = new DefaultHashNode("");
+    public DefaultHashNode root = new DefaultHashNode("");
 
     public DefaultHashTrie() {
     }

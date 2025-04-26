@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PerfectHashTrie implements Serializable {
-    public final PerfectHashNode root = new PerfectHashNode("");
+    public PerfectHashNode root = new PerfectHashNode("");
 
     public PerfectHashTrie() {}
 
