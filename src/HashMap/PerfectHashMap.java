@@ -28,11 +28,11 @@ public class PerfectHashMap<K, V> implements Serializable {
 
     public void rebuild() throws Exception {
         if (storeTable.isEmpty()) {
-            return; // Empty table means nothing to hash
+            return;
         }
 
         r = storeTable.size();
-        m = r * 2; // Initial size, can be adjusted if needed
+        m = r * 2; // Initial size, can be adjusted if needed later
         T = new int[m];
         Arrays.fill(T, 0); // Fill T with 0 to mark unoccupied slots
         this.rebuiltTable = new ArrayList<>(Collections.nCopies(m, null));
@@ -59,6 +59,10 @@ public class PerfectHashMap<K, V> implements Serializable {
             }
             findInjectiveSubHash(bucket);
         }
+
+        if (!validateNoCollisions()){
+            throw new Exception("Collision Detected! Not a Perfect HashMap");
+        }
     }
 
     private void findInjectiveSubHash(List<Node<K, V>> bucket) {
@@ -68,7 +72,7 @@ public class PerfectHashMap<K, V> implements Serializable {
                 int subHash = computeSubHash(newNode.key, i);
                 if (T[subHash] == 0) {
                     // No collision, we can safely add this node
-                    knownSubHashSeeds.add(subHash);
+                    knownSubHashSeeds.add(subHash); // use stored subhashes for faster gets
                     this.rebuiltTable.set(subHash, newNode);
                     T[subHash] = 1;
                     break; // Exit the sub-hash loop
@@ -98,19 +102,16 @@ public class PerfectHashMap<K, V> implements Serializable {
     }
 
     public V get(K key, boolean useRebuilt) {
-        // If useRebuilt is true, use the rebuiltTable; otherwise, use storeTable
-        var useTable = useRebuilt ? this.rebuiltTable : this.storeTable;
-
         // If we are using the rebuilt rebuiltTable, check primary hash first
         if (useRebuilt) {
             int pos = computeHash(key, m);
-            Node<K, V> tNode = useTable.get(pos);
+            Node<K, V> tNode = this.rebuiltTable.get(pos);
             if (tNode != null && tNode.key.equals(key)) {
                 return tNode.value;
             } else {
-                // Try sub-hashing (check the seed stored in the node)
+                // Try sub-hashing (check stored seeds because less than computing incorrect hashes)
                 for (int i = 0; i < knownSubHashSeeds.size(); ++i) {
-                    Node<K, V> maybeNode = useTable.get(knownSubHashSeeds.get(i));
+                    Node<K, V> maybeNode = this.rebuiltTable.get(knownSubHashSeeds.get(i));
                     if (maybeNode != null && maybeNode.key.equals(key)) {
                         return maybeNode.value;
                     }
@@ -118,24 +119,43 @@ public class PerfectHashMap<K, V> implements Serializable {
             }
         } else {
             // If not using the rebuilt table,
-            // just search in storeTable (no sub-hashing)
-            for (Node<K, V> tNode : useTable) {
-                if (tNode.key.equals(key)) {
-                    return tNode.value;
-                }
-            }
+            // just search in lookup hashmap for quick gets
+            return lookupTable.get(key);
         }
 
-        return null; // Not found
+        return null;
     }
 
     public void delete(K key) {
         int pos = computeHash(key, m);
         Node<K, V> tNode = this.rebuiltTable.get(pos);
+
         if (tNode != null && tNode.key.equals(key)) {
             this.rebuiltTable.set(pos, null);
-            // Remove from storeTable as well
-            storeTable.removeIf(node -> node.key.equals(key));
+            for (int i = 0; i < storeTable.size(); i++) {
+                Node<K, V> node = storeTable.get(i);
+                if (node.key.equals(key)) {
+                    storeTable.remove(i);
+                    break;
+                }
+            }
         }
     }
+
+    public boolean validateNoCollisions() {
+        Set<Integer> occupiedPositions = new HashSet<>();
+
+        for (int i = 0; i < rebuiltTable.size(); ++i) {
+            Node<K, V> node = rebuiltTable.get(i);
+            if (node != null) {
+                if (occupiedPositions.contains(i)) {
+                    return false;
+                }
+                occupiedPositions.add(i);
+            }
+        }
+
+        return true;
+    }
+
 }

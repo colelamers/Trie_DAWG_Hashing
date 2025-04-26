@@ -23,53 +23,48 @@ public class Main {
             "nhop4.epub", "nhop5.epub", "nhop6.epub",
     };
 
-    static String[] KING_JAMES = new String[] {
-            // King James Bible
-            "kjb.epub"
-    };
-
     public static void ProcessTests(List<String> books, String whichBookSet) throws Exception {
 
         Processing p = new Processing(whichBookSet);
-        // Hash Function Tests
+/*        System.out.print("\n========================== Default ========================== \n");
         System.out.print("\n___ Default Hash ___\n");
-        //p.Build_DefaultHash(books);
+        p.Build_DefaultHash(books);
+        System.out.print("\n___ Default Trie ___\n");
+        p.Build_DefaultTrie(books);
+        System.out.print("\n___ Default Hash DAWG ___\n");
+        p.Build_DefaultHashDAWG(books);
+
+        System.out.print("\n========================== Custom ========================== \n");
         System.out.print("\n___ Custom Hash ___\n");
-        //p.Build_CustomHash(books);
+        p.Build_CustomHash(books);
+        System.out.print("\n___ Custom Trie ___\n");
+        p.Build_CustomTrie(books);
+        System.out.print("\n___ Custom Hash DAWG ___\n");
+        p.Build_CustomHashDAWG(books);
+
+        System.out.print("\n========================== Cuckoo ========================== \n");
         System.out.print("\n___ Cuckoo Hash ___\n");
-        //p.Build_CuckooHash(books);
+        p.Build_CuckooHash(books);
+        System.out.print("\n___ Cuckoo Trie ___\n");
+        p.Build_CuckooTrie(books);
+        System.out.print("\n___ Cuckoo Hash DAWG ___\n");
+        p.Build_CuckooHashDAWG(books);*/
+
+        System.out.print("\n========================== Perfect ========================== \n");
         System.out.print("\n___ Perfect Hash ___\n");
         p.Build_PerfectHash(books);
-
-        // Trie Tests
-        System.out.print("\n___ Default Trie ___\n");
-        //p.Build_DefaultTrie(books);
-        System.out.print("\n___ Custom Trie ___\n");
-        //p.Build_CustomTrie(books);
-        System.out.print("\n___ Cuckoo Trie ___\n");
-        //p.Build_CuckooTrie(books);
         System.out.print("\n___ Perfect Trie ___\n");
         p.Build_PerfectTrie(books);
-
-        // DAWG Tests
-        System.out.print("\n___ Default Hash DAWG ___\n");
-        //p.Build_DefaultHashDAWG(books);
-        System.out.print("\n___ Custom Hash DAWG ___\n");
-        //p.Build_CustomHashDAWG(books);
-        System.out.print("\n___ Cuckoo Hash DAWG ___\n");
-        //p.Build_CuckooHashDAWG(books);
         System.out.print("\n___ Perfect Hash DAWG ___\n");
         p.Build_PerfectHashDAWG(books);
     }
 
     public static void main(String[] args) throws Exception {
         List<String> globalBookSet = new ArrayList<>();
-        //processSet(MARK_TWAIN, "Mark-Twain", globalBookSet);
-        //processSet(PROCOPIUS, "Procopius", globalBookSet);
-        processSet(KING_JAMES, "King-James", globalBookSet);
-        //processSet(PLUTARCH, "Plutarch", globalBookSet);
-        //processSet(PLINY, "Pliny", globalBookSet);
-        //ProcessTests(globalBookSet, "AllBooks");
+        processSet(MARK_TWAIN, "Mark-Twain", globalBookSet);
+        processSet(PROCOPIUS, "Procopius", globalBookSet);
+        processSet(PLUTARCH, "Plutarch", globalBookSet);
+        processSet(PLINY, "Pliny", globalBookSet);
     }
 
     private static void processSet(String[] bookFiles, String setName, List<String> globalBookSet) throws Exception {

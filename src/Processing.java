@@ -11,16 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Processing {
-// todo 1; need to fix all to be of any key type!!!!
+
     private static final String BINARY_PATH = "./BinaryFiles/";
     private static String WHICH_BOOK = "";
-
     public Processing(String bookName){
         WHICH_BOOK = bookName;
+        System.out.print(WHICH_BOOK);
     }
-
     public static void printLinedTime(String text, long startTime){
-        System.out.print(WHICH_BOOK + " " + text);
+        System.out.print(text);
 
         int targetColumn = 40;
         int spacesToAdd = targetColumn - text.length();
@@ -28,11 +27,10 @@ public class Processing {
             System.out.print(' ');
         }
 
-        System.out.printf("%.2fs\n", (System.currentTimeMillis() - startTime) / 1000d);
+        System.out.printf("%.4fs\n", (System.currentTimeMillis() - startTime) / 1000d);
     }
-
     public static void printLinedTimeForMB(String text, double mbSize){
-        System.out.print(WHICH_BOOK + " " + text);
+        System.out.print(text);
 
         int targetColumn = 40;
         int spacesToAdd = targetColumn - text.length();
@@ -42,11 +40,9 @@ public class Processing {
 
         System.out.printf("%.2f MB\n", mbSize);
     }
-
     private static String getBinaryFileName(String fileName){
         return BINARY_PATH + WHICH_BOOK + "_" + fileName + ".bin";
     }
-
     private static String[] splitString(String sentence){
         String[] words = Arrays.stream(sentence.split("[•—'\",”/|_=+@#<>{}.!?\\s]+"))
                 .filter(word -> !word.isEmpty())
@@ -267,9 +263,14 @@ public class Processing {
                 if (word.isEmpty()) {
                     continue;
                 }
+
+                // So while it may be a "Perfect" hash map, the issue is
+                // that in order to have no collisions, the number of hashes
+                // you need to perform in order to fetch it actually might
+                // be higher than if you just checked a bucket with collisions.
                 var x = customMap.get(word);
                 if (x == null){
-                    customMap.get(word);
+                    x = customMap.get(word);
                 }
             }
         }
@@ -340,9 +341,6 @@ public class Processing {
                 int childIndex = current.getChildIndex(nodeAtI);
                 var temp = current;
                 current = dawg.root.get(nodeAtI);
-                if (current == null){
-                    dawg.root.get(nodeAtI);
-                }
             }
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
