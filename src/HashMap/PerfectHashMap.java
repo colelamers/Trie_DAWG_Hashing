@@ -5,7 +5,8 @@ import java.util.*;
 import Utilities.Nodes.Node;
 
 public class PerfectHashMap<K, V> implements Serializable {
-    private CustomHashMap<K, V> lookupTable;  // Use CustomHashMap for fast lookups
+    private CustomHashMap<K, V> storeLookup;  // Use CustomHashMap for fast lookups
+    private CustomHashMap<K, Integer> keyHashLookup;  // Use CustomHashMap for fast lookups
     private List<Node<K, V>> storeTable;
     private List<Node<K, V>> rebuiltTable; //
     private int m; // Size of the hash table
@@ -16,13 +17,14 @@ public class PerfectHashMap<K, V> implements Serializable {
     public PerfectHashMap() {
         this.storeTable = new ArrayList<>();
         this.rebuiltTable = new ArrayList<>();
-        this.lookupTable = new CustomHashMap<>();
+        this.storeLookup = new CustomHashMap<>();
+        this.keyHashLookup = new CustomHashMap<>();
     }
 
     public void put(K key, V value) throws Exception {
-        if (lookupTable.get(key) == null) {
+        if (storeLookup.get(key) == null) {
             storeTable.add(new Node<>(key, value));
-            lookupTable.put(key, value);
+            storeLookup.put(key, value);
         }
     }
 
@@ -53,11 +55,17 @@ public class PerfectHashMap<K, V> implements Serializable {
             // No collision, just place it in the rebuiltTable
             Node<K, V> tNode = bucket.get(0);
             int hash = computeHash(tNode.key, m);
+            if (tNode.key.equals("then")){
+                hash = computeHash(tNode.key, m);
+
+            }
             if (T[hash] == 0) {
+                keyHashLookup.put(tNode.key, hash);
                 this.rebuiltTable.set(hash, tNode);
                 T[hash] = 1;
+            }else{
+                findInjectiveSubHash(bucket);
             }
-            findInjectiveSubHash(bucket);
         }
 
         if (!validateNoCollisions()){
@@ -72,7 +80,7 @@ public class PerfectHashMap<K, V> implements Serializable {
                 int subHash = computeSubHash(newNode.key, i);
                 if (T[subHash] == 0) {
                     // No collision, we can safely add this node
-                    knownSubHashSeeds.add(subHash); // use stored subhashes for faster gets
+                    keyHashLookup.put(newNode.key, subHash);
                     this.rebuiltTable.set(subHash, newNode);
                     T[subHash] = 1;
                     break; // Exit the sub-hash loop
@@ -103,24 +111,22 @@ public class PerfectHashMap<K, V> implements Serializable {
 
     public V get(K key, boolean useRebuilt) {
         // If we are using the rebuilt rebuiltTable, check primary hash first
-        if (useRebuilt) {
+        if (!useRebuilt) {
             int pos = computeHash(key, m);
             Node<K, V> tNode = this.rebuiltTable.get(pos);
             if (tNode != null && tNode.key.equals(key)) {
                 return tNode.value;
             } else {
-                // Try sub-hashing (check stored seeds because less than computing incorrect hashes)
-                for (int i = 0; i < knownSubHashSeeds.size(); ++i) {
-                    Node<K, V> maybeNode = this.rebuiltTable.get(knownSubHashSeeds.get(i));
-                    if (maybeNode != null && maybeNode.key.equals(key)) {
-                        return maybeNode.value;
-                    }
+                var x = keyHashLookup.get(key);
+                Node<K, V> maybeNode = this.rebuiltTable.get(x);
+                if (maybeNode != null && maybeNode.key.equals(key)) {
+                    return maybeNode.value;
                 }
             }
         } else {
             // If not using the rebuilt table,
             // just search in lookup hashmap for quick gets
-            return lookupTable.get(key);
+            return storeLookup.get(key);
         }
 
         return null;
