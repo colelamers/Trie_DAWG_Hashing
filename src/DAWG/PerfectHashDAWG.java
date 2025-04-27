@@ -16,7 +16,7 @@ public class PerfectHashDAWG<K> implements Serializable {
         // Perform gets with false flag because we need to subordinate
         // the nodes before rebuilding the hashmap.
         K nodeAtZero = nodes.get(0);
-        PerfectHashNode<K> current = root.get(nodeAtZero, false);
+        PerfectHashNode<K> current = root.get(nodeAtZero);
         if (current == null) {
             current = new PerfectHashNode<>(nodeAtZero);
             root.put(nodeAtZero, current);
@@ -31,13 +31,13 @@ public class PerfectHashDAWG<K> implements Serializable {
             if (childIndex == -1) {
                 current.children.add(nodeAtI);
 
-                if (root.get(nodeAtI, false) == null) {
+                if (root.get(nodeAtI) == null) {
                     root.put(nodeAtI, new PerfectHashNode<>(nodeAtI));
                 }
             }
 
             // Always move current to the existing node
-            current = root.get(nodeAtI, false);
+            current = root.get(nodeAtI);
         }
     }
 

@@ -16,7 +16,7 @@ public class Processing {
     private static String WHICH_BOOK = "";
     public Processing(String bookName){
         WHICH_BOOK = bookName;
-        System.out.print(WHICH_BOOK);
+        System.out.print("\n***" + WHICH_BOOK + "***\n");
     }
     public static void printLinedTime(String text, long startTime){
         System.out.print(text);
@@ -76,7 +76,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_DefaultHash";
+        String fileName = "DefaultHash";
         writeBinaryObject(customMap, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -106,7 +106,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_DefaultTrie";
+        String fileName = "DefaultTrie";
         writeBinaryObject(trie, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -137,7 +137,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_DefaultHashDAWG";
+        String fileName = "DefaultHashDAWG";
         writeBinaryObject(dawg, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -167,7 +167,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_CustomTrie";
+        String fileName = "CustomTrie";
         writeBinaryObject(trie, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -199,7 +199,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_CustomHash";
+        String fileName = "CustomHash";
         writeBinaryObject(customMap, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -230,7 +230,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_CustomHashDAWG";
+        String fileName = "CustomHashDAWG";
         writeBinaryObject(dawg, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -276,7 +276,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_PerfectHash";
+        String fileName = "PerfectHash";
         writeBinaryObject(customMap, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -309,7 +309,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_PerfectTrie";
+        String fileName = "PerfectTrie";
         writeBinaryObject(trie, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -344,7 +344,7 @@ public class Processing {
             }
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
-        String fileName = "Build_PerfectHashDAWG";
+        String fileName = "PerfectHashDAWG";
         writeBinaryObject(dawg, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -376,7 +376,7 @@ public class Processing {
             }
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
-        String fileName = "Build_CuckooHash";
+        String fileName = "CuckooHash";
         writeBinaryObject(customMap, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -406,7 +406,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_CuckooTrie";
+        String fileName = "CuckooTrie";
         writeBinaryObject(trie, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);
@@ -436,7 +436,7 @@ public class Processing {
         }
         printLinedTime("Traversal of Entire Data Structure: ", traversalTime);
 
-        String fileName = "Build_CuckooHashDAWG";
+        String fileName = "CuckooHashDAWG";
         writeBinaryObject(dawg, fileName);
         loadBinaryObject(fileName);
         getFileSize(fileName);

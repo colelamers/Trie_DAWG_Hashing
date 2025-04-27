@@ -26,36 +26,36 @@ public class Main {
     public static void ProcessTests(List<String> books, String whichBookSet) throws Exception {
 
         Processing p = new Processing(whichBookSet);
-/*        System.out.print("\n========================== Default ========================== \n");
-        System.out.print("\n___ Default Hash ___\n");
+        System.out.println("========================== Default ==========================");
+        System.out.print("\n___ Hash ___\n");
         p.Build_DefaultHash(books);
-        System.out.print("\n___ Default Trie ___\n");
+        System.out.print("\n___ Trie ___\n");
         p.Build_DefaultTrie(books);
-        System.out.print("\n___ Default Hash DAWG ___\n");
+        System.out.print("\n___ DAWG ___\n");
         p.Build_DefaultHashDAWG(books);
 
-        System.out.print("\n========================== Custom ========================== \n");
-        System.out.print("\n___ Custom Hash ___\n");
+        System.out.println("========================== Custom ==========================");
+        System.out.print("\n___ Hash ___\n");
         p.Build_CustomHash(books);
-        System.out.print("\n___ Custom Trie ___\n");
+        System.out.print("\n___ Trie ___\n");
         p.Build_CustomTrie(books);
-        System.out.print("\n___ Custom Hash DAWG ___\n");
+        System.out.print("\n___ DAWG ___\n");
         p.Build_CustomHashDAWG(books);
 
-        System.out.print("\n========================== Cuckoo ========================== \n");
-        System.out.print("\n___ Cuckoo Hash ___\n");
+        System.out.println("========================== Cuckoo ==========================");
+        System.out.print("\n___ Hash ___\n");
         p.Build_CuckooHash(books);
-        System.out.print("\n___ Cuckoo Trie ___\n");
+        System.out.print("\n___ Trie ___\n");
         p.Build_CuckooTrie(books);
-        System.out.print("\n___ Cuckoo Hash DAWG ___\n");
-        p.Build_CuckooHashDAWG(books);*/
+        System.out.print("\n___ DAWG ___\n");
+        p.Build_CuckooHashDAWG(books);
 
-        System.out.print("\n========================== Perfect ========================== \n");
-        System.out.print("\n___ Perfect Hash ___\n");
+        System.out.println("========================== Perfect ==========================");
+        System.out.print("\n___ Hash ___\n");
         p.Build_PerfectHash(books);
-        System.out.print("\n___ Perfect Trie ___\n");
+        System.out.print("\n___ Trie ___\n");
         p.Build_PerfectTrie(books);
-        System.out.print("\n___ Perfect Hash DAWG ___\n");
+        System.out.print("\n___ DAWG ___\n");
         p.Build_PerfectHashDAWG(books);
     }
 
