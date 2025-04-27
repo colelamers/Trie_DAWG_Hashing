@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PerfectHashTrie implements Serializable {
-    public final PerfectHashNode root = new PerfectHashNode("");
+    public PerfectHashNode root = new PerfectHashNode("");
 
     public PerfectHashTrie() {}
 
@@ -17,7 +17,7 @@ public class PerfectHashTrie implements Serializable {
                 continue;
             }
 
-            PerfectHashNode child = current.children.get(word, false);
+            PerfectHashNode child = current.children.get(word);
 
             if (child == null) {
                 child = new PerfectHashNode(word);
@@ -57,7 +57,7 @@ public class PerfectHashTrie implements Serializable {
         }
 
         public void insertChild(String key, PerfectHashNode childNode) throws Exception {
-            if (children.get(key, false) == null) {
+            if (children.get(key) == null) {
                 children.put(key, childNode);
                 // we absolutely cannot rebuild here. because some nodes have several
                 // hits and are more common than others. thus rebuilding up to say 15 times

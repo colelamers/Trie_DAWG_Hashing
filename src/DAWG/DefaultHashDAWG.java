@@ -3,44 +3,50 @@ package DAWG;
 import java.io.Serializable;
 import java.util.*;
 
-public class DefaultHashDAWG implements Serializable {
-    public final DefaultHashNode root = new DefaultHashNode("");
+public class DefaultHashDAWG<K> implements Serializable {
+    public HashMap<K, DefaultHashNode<K>> root = new HashMap<>();
 
-    public DefaultHashDAWG() {
-    }
+    public DefaultHashDAWG() {}
 
-    public void insert(List<String> words) {
-        DefaultHashNode current = root;
+    public void insert(List<K> nodes) {
+        if (nodes.isEmpty()) {
+            return;
+        }
 
-        for (String word : words) {
-            if (word.isEmpty()) continue;
+        K nodeAtZero = nodes.get(0);
+        DefaultHashNode<K> current = root.get(nodeAtZero);
+        if (current == null) {
+            current = new DefaultHashNode<>(nodeAtZero);
+            root.put(nodeAtZero, current);
+        }
 
-            DefaultHashNode child = current.getChild(word);
+        for (int i = 1; i < nodes.size(); ++i) {
+            K nodeAtI = nodes.get(i);
+            int childIndex = current.getChildIndex(nodeAtI);
 
-            if (child == null) {
-                child = new DefaultHashNode(word);
-                current.insertChild(word, child);
+            if (childIndex == -1) {
+                current.children.add(nodeAtI);
+
+                if (!root.containsKey(nodeAtI)) {
+                    root.put(nodeAtI, new DefaultHashNode<>(nodeAtI));
+                }
             }
 
-            current = child;
+            // Always move to the child node
+            current = root.get(nodeAtI);
         }
     }
 
-    public class DefaultHashNode implements Serializable {
-        public String word;
-        public Map<String, DefaultHashNode> children;
+    public static class DefaultHashNode<K> implements Serializable {
+        public K node;
+        public ArrayList<K> children = new ArrayList<>();
 
-        public DefaultHashNode(String word) {
-            this.word = word;
-            this.children = new HashMap<>();
+        public DefaultHashNode(K node) {
+            this.node = node;
         }
 
-        public void insertChild(String key, DefaultHashNode child) {
-            children.put(key, child);
-        }
-
-        public DefaultHashNode getChild(String key) {
-            return children.get(key);
+        public int getChildIndex(K key) {
+            return children.indexOf(key);
         }
     }
 }
