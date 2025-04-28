@@ -31,7 +31,7 @@ public class Main {
     public static void ProcessTests(List<String> books, String whichBookSet) throws Exception {
 
         Processing p = new Processing(whichBookSet);
-/*        System.out.print("\n==================== " + whichBookSet + " - Default" + " ==========================");
+        System.out.print("\n==================== " + whichBookSet + " - Default" + " ==========================");
         System.out.print("\n___ Hash ___\n");
         p.Build_DefaultHash(books);
         System.out.print("\n___ Trie ___\n");
@@ -53,7 +53,7 @@ public class Main {
         System.out.print("\n___ Trie ___\n");
         p.Build_CuckooTrie(books);
         System.out.print("\n___ DAWG ___\n");
-        p.Build_CuckooHashDAWG(books);*/
+        p.Build_CuckooHashDAWG(books);
 
         System.out.print("\n==================== " + whichBookSet + " - Perfect" + " ==========================");
         System.out.print("\n___ Hash ___\n");
