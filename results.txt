@@ -1,456 +1,364 @@
-========================== Hash ==========================
-
-___ Default Hash ___
-Mark-Twain Assembly Time:                          0.0980s
-Mark-Twain Traversal of Entire Data Structure:     0.0440s
-Mark-Twain Binary File Write Time:                 0.0300s
-Mark-Twain Binary File Load Time:                  0.0340s
-Mark-Twain File Size:                              0.25 MB
-
-___ Custom Hash ___
-Mark-Twain Assembly Time:                          0.0550s
-Mark-Twain Traversal of Entire Data Structure:     0.0160s
-Mark-Twain Binary File Write Time:                 0.0180s
-Mark-Twain Binary File Load Time:                  0.0500s
-Mark-Twain File Size:                              0.32 MB
-
-___ Cuckoo Hash ___
-Mark-Twain Assembly Time:                          0.0440s
-Mark-Twain Traversal of Entire Data Structure:     0.0150s
-Mark-Twain Binary File Write Time:                 0.0120s
-Mark-Twain Binary File Load Time:                  0.0750s
-Mark-Twain File Size:                              0.43 MB
-
-___ Perfect Hash ___
-Mark-Twain Assembly Time:                          0.0400s
-Mark-Twain Rebuild Perfect Hash Time:              0.0110s
-Mark-Twain Traversal of Entire Data Structure:     0.7860s
-Mark-Twain Binary File Write Time:                 0.0420s
-Mark-Twain Binary File Load Time:                  0.0890s
-Mark-Twain File Size:                              0.72 MB
-
-========================== Trie ==========================
-
-___ Default Trie ___
-Mark-Twain Assembly Time:                          0.0180s
-Mark-Twain Traversal of Entire Data Structure:     0.0160s
-Mark-Twain Binary File Write Time:                 0.2510s
-Mark-Twain Binary File Load Time:                  0.3860s
-Mark-Twain File Size:                              2.94 MB
-
-___ Custom Trie ___
-Mark-Twain Assembly Time:                          0.0180s
-Mark-Twain Traversal of Entire Data Structure:     0.0150s
-Mark-Twain Binary File Write Time:                 0.1150s
-Mark-Twain Binary File Load Time:                  0.6470s
-Mark-Twain File Size:                              3.67 MB
-
-___ Cuckoo Trie ___
-Mark-Twain Assembly Time:                          0.0260s
-Mark-Twain Traversal of Entire Data Structure:     0.0170s
-Mark-Twain Binary File Write Time:                 0.4600s
-Mark-Twain Binary File Load Time:                  1.2970s
-Mark-Twain File Size:                              8.46 MB
-
-___ Perfect Trie ___
-Mark-Twain Assembly Time:                          0.0190s
-Mark-Twain Rebuild Perfect Hash Time:              0.0380s
-Mark-Twain Traversal of Entire Data Structure:     0.0170s
-Mark-Twain Binary File Write Time:                 0.8500s
-Mark-Twain Binary File Load Time:                  1.5290s
-Mark-Twain File Size:                              10.61 MB
-
-========================== DAWG ==========================
-
-___ Default Hash DAWG ___
-Mark-Twain Assembly Time:                          0.0300s
-Mark-Twain Traversal of Entire Data Structure:     0.0300s
-Mark-Twain Binary File Write Time:                 0.0600s
-Mark-Twain Binary File Load Time:                  0.0790s
-Mark-Twain File Size:                              0.61 MB
-
-___ Custom Hash DAWG ___
-Mark-Twain Assembly Time:                          0.0320s
-Mark-Twain Traversal of Entire Data Structure:     0.0340s
-Mark-Twain Binary File Write Time:                 0.0560s
-Mark-Twain Binary File Load Time:                  0.0940s
-Mark-Twain File Size:                              0.68 MB
-
-___ Cuckoo Hash DAWG ___
-Mark-Twain Assembly Time:                          0.0330s
-Mark-Twain Traversal of Entire Data Structure:     0.0340s
-Mark-Twain Binary File Write Time:                 0.0540s
-Mark-Twain Binary File Load Time:                  0.1230s
-Mark-Twain File Size:                              0.79 MB
-
-___ Perfect Hash DAWG ___
-Mark-Twain Assembly Time:                          1.0330s
-Mark-Twain Rebuild Perfect Hash Time:              0.0020s
-Mark-Twain Traversal of Entire Data Structure:     0.6210s
-Mark-Twain Binary File Write Time:                 0.0830s
-Mark-Twain Binary File Load Time:                  0.1420s
-Mark-Twain File Size:                              1.09 MB
-
-========================== Hash ==========================
-
-___ Default Hash ___
-Procopius Assembly Time:                          0.0830s
-Procopius Traversal of Entire Data Structure:     0.0420s
-Procopius Binary File Write Time:                 0.0190s
-Procopius Binary File Load Time:                  0.0230s
-Procopius File Size:                              0.32 MB
-
-___ Custom Hash ___
-Procopius Assembly Time:                          0.0760s
-Procopius Traversal of Entire Data Structure:     0.0420s
-Procopius Binary File Write Time:                 0.0050s
-Procopius Binary File Load Time:                  0.0380s
-Procopius File Size:                              0.40 MB
-
-___ Cuckoo Hash ___
-Procopius Assembly Time:                          0.1000s
-Procopius Traversal of Entire Data Structure:     0.0440s
-Procopius Binary File Write Time:                 0.0050s
-Procopius Binary File Load Time:                  0.0690s
-Procopius File Size:                              0.51 MB
-
-___ Perfect Hash ___
-Procopius Assembly Time:                          0.0750s
-Procopius Rebuild Perfect Hash Time:              0.0030s
-Procopius Traversal of Entire Data Structure:     4.3900s
-Procopius Binary File Write Time:                 0.0410s
-Procopius Binary File Load Time:                  0.0930s
-Procopius File Size:                              0.90 MB
-
-========================== Trie ==========================
-
-___ Default Trie ___
-Procopius Assembly Time:                          0.0430s
-Procopius Traversal of Entire Data Structure:     0.0440s
-Procopius Binary File Write Time:                 0.8350s
-Procopius Binary File Load Time:                  1.2310s
-Procopius File Size:                              10.67 MB
-
-___ Custom Trie ___
-Procopius Assembly Time:                          0.0420s
-Procopius Traversal of Entire Data Structure:     0.0440s
-Procopius Binary File Write Time:                 0.4340s
-Procopius Binary File Load Time:                  2.3080s
-Procopius File Size:                              13.32 MB
-
-___ Cuckoo Trie ___
-Procopius Assembly Time:                          0.0580s
-Procopius Traversal of Entire Data Structure:     0.0490s
-Procopius Binary File Write Time:                 1.6420s
-Procopius Binary File Load Time:                  4.6560s
-Procopius File Size:                              30.70 MB
-
-___ Perfect Trie ___
-Procopius Assembly Time:                          0.0620s
-Procopius Rebuild Perfect Hash Time:              0.1360s
-Procopius Traversal of Entire Data Structure:     0.0670s
-Procopius Binary File Write Time:                 3.0400s
-Procopius Binary File Load Time:                  5.5590s
-Procopius File Size:                              38.48 MB
-
-========================== DAWG ==========================
-
-___ Default Hash DAWG ___
-Procopius Assembly Time:                          0.1320s
-Procopius Traversal of Entire Data Structure:     0.1430s
-Procopius Binary File Write Time:                 0.1040s
-Procopius Binary File Load Time:                  0.1340s
-Procopius File Size:                              1.09 MB
-
-___ Custom Hash DAWG ___
-Procopius Assembly Time:                          0.1410s
-Procopius Traversal of Entire Data Structure:     0.1340s
-Procopius Binary File Write Time:                 0.0900s
-Procopius Binary File Load Time:                  0.1500s
-Procopius File Size:                              1.17 MB
-
-___ Cuckoo Hash DAWG ___
-Procopius Assembly Time:                          0.1460s
-Procopius Traversal of Entire Data Structure:     0.1510s
-Procopius Binary File Write Time:                 0.0950s
-Procopius Binary File Load Time:                  0.1860s
-Procopius File Size:                              1.28 MB
-
-___ Perfect Hash DAWG ___
-Procopius Assembly Time:                          3.7590s
-Procopius Rebuild Perfect Hash Time:              0.0020s
-Procopius Traversal of Entire Data Structure:     3.7600s
-Procopius Binary File Write Time:                 0.1290s
-Procopius Binary File Load Time:                  0.2110s
-Procopius File Size:                              1.67 MB
-
-========================== Hash ==========================
-
-___ Default Hash ___
-King-James Assembly Time:                          0.2150s
-King-James Traversal of Entire Data Structure:     0.1090s
-King-James Binary File Write Time:                 0.0660s
-King-James Binary File Load Time:                  0.0940s
-King-James File Size:                              1.48 MB
-
-___ Custom Hash ___
-King-James Assembly Time:                          0.2050s
-King-James Traversal of Entire Data Structure:     0.1160s
-King-James Binary File Write Time:                 0.0180s
-King-James Binary File Load Time:                  0.1730s
-King-James File Size:                              1.89 MB
-
-___ Cuckoo Hash ___
-King-James Assembly Time:                          0.2170s
-King-James Traversal of Entire Data Structure:     0.1260s
-King-James Binary File Write Time:                 0.0210s
-King-James Binary File Load Time:                  0.4130s
-King-James File Size:                              2.77 MB
-
-___ Perfect Hash ___
-King-James Assembly Time:                          0.2130s
-King-James Rebuild Perfect Hash Time:              0.0410s
-King-James Traversal of Entire Data Structure:     46.6220s
-King-James Binary File Write Time:                 0.1870s
-King-James Binary File Load Time:                  0.4260s
-King-James File Size:                              3.97 MB
-
-========================== Trie ==========================
-
-___ Default Trie ___
-King-James Assembly Time:                          0.1280s
-King-James Traversal of Entire Data Structure:     0.1510s
-King-James Binary File Write Time:                 3.3660s
-King-James Binary File Load Time:                  4.4840s
-King-James File Size:                              37.86 MB
-
-___ Custom Trie ___
-King-James Assembly Time:                          0.1500s
-King-James Traversal of Entire Data Structure:     0.1490s
-King-James Binary File Write Time:                 1.9360s
-King-James Binary File Load Time:                  8.1910s
-King-James File Size:                              47.30 MB
-
-___ Cuckoo Trie ___
-King-James Assembly Time:                          0.2270s
-King-James Traversal of Entire Data Structure:     0.1660s
-King-James Binary File Write Time:                 7.0600s
-King-James Binary File Load Time:                  17.1850s
-King-James File Size:                              109.40 MB
-
-___ Perfect Trie ___
-King-James Assembly Time:                          4.5620s
-King-James Rebuild Perfect Hash Time:              1.5970s
-King-James Traversal of Entire Data Structure:     1.5350s
-King-James Binary File Write Time:                 12.3840s
-King-James Binary File Load Time:                  20.1460s
-King-James File Size:                              137.23 MB
-
-========================== DAWG ==========================
-
-___ Default Hash DAWG ___
-King-James Assembly Time:                          0.6970s
-King-James Traversal of Entire Data Structure:     0.7130s
-King-James Binary File Write Time:                 0.3490s
-King-James Binary File Load Time:                  0.4520s
-King-James File Size:                              3.35 MB
-
-___ Custom Hash DAWG ___
-King-James Assembly Time:                          0.7490s
-King-James Traversal of Entire Data Structure:     0.8250s
-King-James Binary File Write Time:                 0.3050s
-King-James Binary File Load Time:                  0.5490s
-King-James File Size:                              3.77 MB
-
-___ Cuckoo Hash DAWG ___
-King-James Assembly Time:                          0.7370s
-King-James Traversal of Entire Data Structure:     0.7240s
-King-James Binary File Write Time:                 0.2970s
-King-James Binary File Load Time:                  0.6410s
-King-James File Size:                              4.14 MB
-
-___ Perfect Hash DAWG ___
-King-James Assembly Time:                          38.6940s
-King-James Rebuild Perfect Hash Time:              0.0120s
-King-James Traversal of Entire Data Structure:     67.2240s
-King-James Binary File Write Time:                 0.4530s
-King-James Binary File Load Time:                  0.7410s
-King-James File Size:                              5.85 MB
-
-========================== Hash ==========================
-
-___ Default Hash ___
-Plutarch Assembly Time:                          0.3880s
-Plutarch Traversal of Entire Data Structure:     0.1450s
-Plutarch Binary File Write Time:                 0.0670s
-Plutarch Binary File Load Time:                  0.0750s
-Plutarch File Size:                              0.90 MB
-
-___ Custom Hash ___
-Plutarch Assembly Time:                          0.2820s
-Plutarch Traversal of Entire Data Structure:     0.1630s
-Plutarch Binary File Write Time:                 0.0220s
-Plutarch Binary File Load Time:                  0.1220s
-Plutarch File Size:                              1.15 MB
-
-___ Cuckoo Hash ___
-Plutarch Assembly Time:                          0.2560s
-Plutarch Traversal of Entire Data Structure:     0.1500s
-Plutarch Binary File Write Time:                 0.0200s
-Plutarch Binary File Load Time:                  0.2350s
-Plutarch File Size:                              1.59 MB
-
-___ Perfect Hash ___
-Plutarch Assembly Time:                          0.2480s
-Plutarch Rebuild Perfect Hash Time:              0.0260s
-Plutarch Traversal of Entire Data Structure:     29.1850s
-Plutarch Binary File Write Time:                 0.1230s
-Plutarch Binary File Load Time:                  0.2770s
-Plutarch File Size:                              2.51 MB
-
-========================== Trie ==========================
-
-___ Default Trie ___
-Plutarch Assembly Time:                          0.1530s
-Plutarch Traversal of Entire Data Structure:     0.1700s
-Plutarch Binary File Write Time:                 3.1880s
-Plutarch Binary File Load Time:                  4.5540s
-Plutarch File Size:                              38.19 MB
-
-___ Custom Trie ___
-Plutarch Assembly Time:                          0.2090s
-Plutarch Traversal of Entire Data Structure:     0.1520s
-Plutarch Binary File Write Time:                 1.8110s
-Plutarch Binary File Load Time:                  8.2130s
-Plutarch File Size:                              47.66 MB
-
-___ Cuckoo Trie ___
-Plutarch Assembly Time:                          0.2830s
-Plutarch Traversal of Entire Data Structure:     0.1690s
-Plutarch Binary File Write Time:                 6.6150s
-Plutarch Binary File Load Time:                  16.8300s
-Plutarch File Size:                              109.81 MB
-
-___ Perfect Trie ___
-Plutarch Assembly Time:                          0.8780s
-Plutarch Rebuild Perfect Hash Time:              0.3830s
-Plutarch Traversal of Entire Data Structure:     0.5560s
-Plutarch Binary File Write Time:                 11.9720s
-Plutarch Binary File Load Time:                  20.3900s
-Plutarch File Size:                              137.74 MB
-
-========================== DAWG ==========================
-
-___ Default Hash DAWG ___
-Plutarch Assembly Time:                          1.3470s
-Plutarch Traversal of Entire Data Structure:     1.0860s
-Plutarch Binary File Write Time:                 0.3110s
-Plutarch Binary File Load Time:                  0.4030s
-Plutarch File Size:                              3.27 MB
-
-___ Custom Hash DAWG ___
-Plutarch Assembly Time:                          1.3630s
-Plutarch Traversal of Entire Data Structure:     1.6560s
-Plutarch Binary File Write Time:                 0.3000s
-Plutarch Binary File Load Time:                  0.4410s
-Plutarch File Size:                              3.52 MB
-
-___ Cuckoo Hash DAWG ___
-Plutarch Assembly Time:                          1.1590s
-Plutarch Traversal of Entire Data Structure:     1.1280s
-Plutarch Binary File Write Time:                 0.2930s
-Plutarch Binary File Load Time:                  0.6030s
-Plutarch File Size:                              3.96 MB
-
-___ Perfect Hash DAWG ___
-Plutarch Assembly Time:                          33.9080s
-Plutarch Rebuild Perfect Hash Time:              0.0090s
-Plutarch Traversal of Entire Data Structure:     42.5310s
-Plutarch Binary File Write Time:                 0.4270s
-Plutarch Binary File Load Time:                  0.6340s
-Plutarch File Size:                              4.89 MB
-
-========================== Hash ==========================
-
-___ Default Hash ___
-Pliny Assembly Time:                          0.4180s
-Pliny Traversal of Entire Data Structure:     0.2300s
-Pliny Binary File Write Time:                 0.1210s
-Pliny Binary File Load Time:                  0.1660s
-Pliny File Size:                              2.50 MB
-
-___ Custom Hash ___
-Pliny Assembly Time:                          0.4400s
-Pliny Traversal of Entire Data Structure:     0.2730s
-Pliny Binary File Write Time:                 0.0310s
-Pliny Binary File Load Time:                  0.2810s
-Pliny File Size:                              3.13 MB
-
-___ Cuckoo Hash ___
-Pliny Assembly Time:                          0.4680s
-Pliny Traversal of Entire Data Structure:     0.2740s
-Pliny Binary File Write Time:                 0.0380s
-Pliny Binary File Load Time:                  0.8130s
-Pliny File Size:                              5.00 MB
-
-___ Perfect Hash ___
-Pliny Assembly Time:                          0.4940s
-Pliny Rebuild Perfect Hash Time:              0.0210s
-Pliny Traversal of Entire Data Structure:     379.3050s
-Pliny Binary File Write Time:                 0.3050s
-Pliny Binary File Load Time:                  0.6840s
-Pliny File Size:                              6.74 MB
-
-========================== Trie ==========================
-
-___ Default Trie ___
-Pliny Assembly Time:                          0.3740s
-Pliny Traversal of Entire Data Structure:     0.2780s
-Pliny Binary File Write Time:                 5.1070s
-Pliny Binary File Load Time:                  7.1800s
-Pliny File Size:                              59.03 MB
-
-___ Custom Trie ___
-Pliny Assembly Time:                          0.3670s
-Pliny Traversal of Entire Data Structure:     0.3320s
-Pliny Binary File Write Time:                 3.0810s
-Pliny Binary File Load Time:                  12.8640s
-Pliny File Size:                              73.67 MB
-
-___ Cuckoo Trie ___
-Pliny Assembly Time:                          0.5040s
-Pliny Traversal of Entire Data Structure:     0.3530s
-Pliny Binary File Write Time:                 11.0490s
-Pliny Binary File Load Time:                  26.6710s
-Pliny File Size:                              169.82 MB
-
-___ Perfect Trie ___
-Pliny Assembly Time:                          3.4040s
-Pliny Rebuild Perfect Hash Time:              1.1430s
-Pliny Traversal of Entire Data Structure:     2.6790s
-Pliny Binary File Write Time:                 18.6580s
-Pliny Binary File Load Time:                  30.7510s
-Pliny File Size:                              212.52 MB
-
-========================== DAWG ==========================
-
-___ Default Hash DAWG ___
-Pliny Assembly Time:                          3.8080s
-Pliny Traversal of Entire Data Structure:     3.6410s
-Pliny Binary File Write Time:                 0.6570s
-Pliny Binary File Load Time:                  0.8130s
-Pliny File Size:                              6.37 MB
-
-___ Custom Hash DAWG ___
-Pliny Assembly Time:                          3.5780s
-Pliny Traversal of Entire Data Structure:     3.9740s
-Pliny Binary File Write Time:                 0.5480s
-Pliny Binary File Load Time:                  0.9030s
-Pliny File Size:                              7.00 MB
-
-___ Cuckoo Hash DAWG ___
-Pliny Assembly Time:                          3.8180s
-Pliny Traversal of Entire Data Structure:     4.2300s
-Pliny Binary File Write Time:                 0.5970s
-Pliny Binary File Load Time:                  1.1770s
-Pliny File Size:                              7.87 MB
+
+==================== Mark-Twain - Default ==========================
+___ Hash ___
+Assembly Time:                          0.0760s
+Traversal of Entire Data Structure:     0.0350s
+Binary File Write Time:                 0.0330s
+Binary File Load Time:                  0.0360s
+File Size:                              0.25 MB
+
+___ Trie ___
+Assembly Time:                          0.0190s
+Traversal of Entire Data Structure:     0.0230s
+Binary File Write Time:                 0.2540s
+Binary File Load Time:                  0.3780s
+File Size:                              2.94 MB
+
+___ DAWG ___
+Assembly Time:                          0.0360s
+Traversal of Entire Data Structure:     0.0350s
+Binary File Write Time:                 0.0700s
+Binary File Load Time:                  0.0930s
+File Size:                              0.61 MB
+
+==================== Mark-Twain - Custom ==========================
+___ Hash ___
+Assembly Time:                          0.0420s
+Traversal of Entire Data Structure:     0.0150s
+Binary File Write Time:                 0.0090s
+Binary File Load Time:                  0.0380s
+File Size:                              0.32 MB
+
+___ Trie ___
+Assembly Time:                          0.0190s
+Traversal of Entire Data Structure:     0.0150s
+Binary File Write Time:                 0.1230s
+Binary File Load Time:                  0.6570s
+File Size:                              3.67 MB
+
+___ DAWG ___
+Assembly Time:                          0.0360s
+Traversal of Entire Data Structure:     0.0360s
+Binary File Write Time:                 0.0540s
+Binary File Load Time:                  0.1010s
+File Size:                              0.68 MB
+
+==================== Mark-Twain - Cuckoo ==========================
+___ Hash ___
+Assembly Time:                          0.0430s
+Traversal of Entire Data Structure:     0.0150s
+Binary File Write Time:                 0.0060s
+Binary File Load Time:                  0.0640s
+File Size:                              0.43 MB
+
+___ Trie ___
+Assembly Time:                          0.0270s
+Traversal of Entire Data Structure:     0.0180s
+Binary File Write Time:                 0.4430s
+Binary File Load Time:                  1.3110s
+File Size:                              8.46 MB
+
+___ DAWG ___
+Assembly Time:                          0.0320s
+Traversal of Entire Data Structure:     0.0330s
+Binary File Write Time:                 0.0530s
+Binary File Load Time:                  0.1290s
+File Size:                              0.79 MB
+
+==================== Mark-Twain - Perfect ==========================
+___ Hash ___
+Assembly Time:                          0.0290s
+Rebuild Perfect Hash Time:              0.0090s
+Traversal of Entire Data Structure:     0.0130s
+Binary File Write Time:                 0.0350s
+Binary File Load Time:                  0.0930s
+File Size:                              0.77 MB
+
+___ Trie ___
+Assembly Time:                          0.0140s
+Rebuild Perfect Hash Time:              0.0180s
+Traversal of Entire Data Structure:     0.0140s
+Binary File Write Time:                 0.8750s
+Binary File Load Time:                  2.0560s
+File Size:                              13.22 MB
+
+___ DAWG ___
+Assembly Time:                          0.0330s
+Rebuild Perfect Hash Time:              0.0010s
+Traversal of Entire Data Structure:     0.0330s
+Binary File Write Time:                 0.0810s
+Binary File Load Time:                  0.1580s
+File Size:                              1.13 MB
+
+==================== Procopius - Default ==========================
+___ Hash ___
+Assembly Time:                          0.0810s
+Traversal of Entire Data Structure:     0.0420s
+Binary File Write Time:                 0.0180s
+Binary File Load Time:                  0.0230s
+File Size:                              0.32 MB
+
+___ Trie ___
+Assembly Time:                          0.0460s
+Traversal of Entire Data Structure:     0.0430s
+Binary File Write Time:                 0.8280s
+Binary File Load Time:                  1.2700s
+File Size:                              10.67 MB
+
+___ DAWG ___
+Assembly Time:                          0.1420s
+Traversal of Entire Data Structure:     0.1470s
+Binary File Write Time:                 0.1030s
+Binary File Load Time:                  0.1380s
+File Size:                              1.09 MB
+
+==================== Procopius - Custom ==========================
+___ Hash ___
+Assembly Time:                          0.0740s
+Traversal of Entire Data Structure:     0.0410s
+Binary File Write Time:                 0.0050s
+Binary File Load Time:                  0.0380s
+File Size:                              0.40 MB
+
+___ Trie ___
+Assembly Time:                          0.0430s
+Traversal of Entire Data Structure:     0.0450s
+Binary File Write Time:                 0.4510s
+Binary File Load Time:                  2.2830s
+File Size:                              13.32 MB
+
+___ DAWG ___
+Assembly Time:                          0.1460s
+Traversal of Entire Data Structure:     0.1540s
+Binary File Write Time:                 0.0930s
+Binary File Load Time:                  0.1560s
+File Size:                              1.17 MB
+
+==================== Procopius - Cuckoo ==========================
+___ Hash ___
+Assembly Time:                          0.0740s
+Traversal of Entire Data Structure:     0.0430s
+Binary File Write Time:                 0.0060s
+Binary File Load Time:                  0.0690s
+File Size:                              0.51 MB
+
+___ Trie ___
+Assembly Time:                          0.0750s
+Traversal of Entire Data Structure:     0.0520s
+Binary File Write Time:                 1.6640s
+Binary File Load Time:                  4.6880s
+File Size:                              30.70 MB
+
+___ DAWG ___
+Assembly Time:                          0.1450s
+Traversal of Entire Data Structure:     0.1550s
+Binary File Write Time:                 0.0960s
+Binary File Load Time:                  0.1880s
+File Size:                              1.28 MB
+
+==================== Procopius - Perfect ==========================
+___ Hash ___
+Assembly Time:                          0.1070s
+Rebuild Perfect Hash Time:              0.0030s
+Traversal of Entire Data Structure:     0.0420s
+Binary File Write Time:                 0.0400s
+Binary File Load Time:                  0.1160s
+File Size:                              0.95 MB
+
+___ Trie ___
+Assembly Time:                          0.0500s
+Rebuild Perfect Hash Time:              0.0510s
+Traversal of Entire Data Structure:     0.0450s
+Binary File Write Time:                 3.4290s
+Binary File Load Time:                  7.4030s
+File Size:                              47.93 MB
+
+___ DAWG ___
+Assembly Time:                          0.1720s
+Rebuild Perfect Hash Time:              0.0020s
+Traversal of Entire Data Structure:     0.1230s
+Binary File Write Time:                 0.1260s
+Binary File Load Time:                  0.2280s
+File Size:                              1.73 MB
+
+==================== Plutarch - Default ==========================
+___ Hash ___
+Assembly Time:                          0.2410s
+Traversal of Entire Data Structure:     0.1320s
+Binary File Write Time:                 0.0450s
+Binary File Load Time:                  0.0630s
+File Size:                              0.90 MB
+
+___ Trie ___
+Assembly Time:                          0.1620s
+Traversal of Entire Data Structure:     0.1840s
+Binary File Write Time:                 3.1590s
+Binary File Load Time:                  4.6540s
+File Size:                              38.19 MB
+
+___ DAWG ___
+Assembly Time:                          1.2940s
+Traversal of Entire Data Structure:     0.8180s
+Binary File Write Time:                 0.2970s
+Binary File Load Time:                  0.4080s
+File Size:                              3.27 MB
+
+==================== Plutarch - Custom ==========================
+___ Hash ___
+Assembly Time:                          0.2530s
+Traversal of Entire Data Structure:     0.1420s
+Binary File Write Time:                 0.0110s
+Binary File Load Time:                  0.1160s
+File Size:                              1.15 MB
+
+___ Trie ___
+Assembly Time:                          0.1840s
+Traversal of Entire Data Structure:     0.1680s
+Binary File Write Time:                 1.8940s
+Binary File Load Time:                  8.4070s
+File Size:                              47.66 MB
+
+___ DAWG ___
+Assembly Time:                          1.1350s
+Traversal of Entire Data Structure:     0.8440s
+Binary File Write Time:                 0.2640s
+Binary File Load Time:                  0.4410s
+File Size:                              3.52 MB
+
+==================== Plutarch - Cuckoo ==========================
+___ Hash ___
+Assembly Time:                          0.2480s
+Traversal of Entire Data Structure:     0.1540s
+Binary File Write Time:                 0.0120s
+Binary File Load Time:                  0.2370s
+File Size:                              1.59 MB
+
+___ Trie ___
+Assembly Time:                          0.2920s
+Traversal of Entire Data Structure:     0.1990s
+Binary File Write Time:                 6.6920s
+Binary File Load Time:                  17.1030s
+File Size:                              109.80 MB
+
+___ DAWG ___
+Assembly Time:                          1.0730s
+Traversal of Entire Data Structure:     0.9330s
+Binary File Write Time:                 0.2730s
+Binary File Load Time:                  0.5790s
+File Size:                              3.96 MB
+
+==================== Plutarch - Perfect ==========================
+___ Hash ___
+Assembly Time:                          0.2510s
+Rebuild Perfect Hash Time:              0.0070s
+Traversal of Entire Data Structure:     0.1450s
+Binary File Write Time:                 0.1150s
+Binary File Load Time:                  0.3140s
+File Size:                              2.68 MB
+
+___ Trie ___
+Assembly Time:                          0.2380s
+Rebuild Perfect Hash Time:              0.1900s
+Traversal of Entire Data Structure:     0.1890s
+Binary File Write Time:                 13.3070s
+Binary File Load Time:                  26.6010s
+File Size:                              171.50 MB
+
+___ DAWG ___
+Assembly Time:                          1.3760s
+Rebuild Perfect Hash Time:              0.0100s
+Traversal of Entire Data Structure:     0.7960s
+Binary File Write Time:                 0.3740s
+Binary File Load Time:                  0.6360s
+File Size:                              5.06 MB
+
+==================== Pliny - Default ==========================
+___ Hash ___
+Assembly Time:                          0.4390s
+Traversal of Entire Data Structure:     0.2280s
+Binary File Write Time:                 0.1230s
+Binary File Load Time:                  0.1660s
+File Size:                              2.50 MB
+
+___ Trie ___
+Assembly Time:                          0.2870s
+Traversal of Entire Data Structure:     0.3000s
+Binary File Write Time:                 5.0680s
+Binary File Load Time:                  7.0760s
+File Size:                              59.03 MB
+
+___ DAWG ___
+Assembly Time:                          3.6860s
+Traversal of Entire Data Structure:     2.9120s
+Binary File Write Time:                 0.6420s
+Binary File Load Time:                  0.8360s
+File Size:                              6.37 MB
+
+==================== Pliny - Custom ==========================
+___ Hash ___
+Assembly Time:                          0.4610s
+Traversal of Entire Data Structure:     0.2480s
+Binary File Write Time:                 0.0380s
+Binary File Load Time:                  0.2810s
+File Size:                              3.13 MB
+
+___ Trie ___
+Assembly Time:                          0.3120s
+Traversal of Entire Data Structure:     0.2750s
+Binary File Write Time:                 3.2070s
+Binary File Load Time:                  13.0370s
+File Size:                              73.67 MB
+
+___ DAWG ___
+Assembly Time:                          3.1080s
+Traversal of Entire Data Structure:     2.8570s
+Binary File Write Time:                 0.5390s
+Binary File Load Time:                  0.9360s
+File Size:                              7.00 MB
+
+==================== Pliny - Cuckoo ==========================
+___ Hash ___
+Assembly Time:                          0.4770s
+Traversal of Entire Data Structure:     0.2730s
+Binary File Write Time:                 0.0340s
+Binary File Load Time:                  0.5150s
+File Size:                              4.00 MB
+
+___ Trie ___
+Assembly Time:                          0.5380s
+Traversal of Entire Data Structure:     0.3190s
+Binary File Write Time:                 10.5170s
+Binary File Load Time:                  26.2630s
+File Size:                              169.69 MB
+
+___ DAWG ___
+Assembly Time:                          3.5340s
+Traversal of Entire Data Structure:     2.9340s
+Binary File Write Time:                 0.5500s
+Binary File Load Time:                  1.4590s
+File Size:                              8.87 MB
+
+==================== Pliny - Perfect ==========================
+___ Hash ___
+Assembly Time:                          0.4510s
+Rebuild Perfect Hash Time:              0.0220s
+Traversal of Entire Data Structure:     0.2610s
+Binary File Write Time:                 0.3130s
+Binary File Load Time:                  0.8220s
+File Size:                              7.14 MB
+
+___ Trie ___
+Assembly Time:                          0.3840s
+Rebuild Perfect Hash Time:              0.3160s
+Traversal of Entire Data Structure:     0.3850s
+Binary File Write Time:                 21.3400s
+Binary File Load Time:                  41.3130s
+File Size:                              264.61 MB
+
+___ DAWG ___
+Assembly Time:                          4.8830s
+Rebuild Perfect Hash Time:              0.0290s
+Traversal of Entire Data Structure:     4.1370s
+Binary File Write Time:                 0.9350s
+Binary File Load Time:                  1.5200s
+File Size:                              11.04 MB

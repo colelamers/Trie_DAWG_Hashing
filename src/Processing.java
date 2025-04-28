@@ -16,14 +16,13 @@ public class Processing {
     private static String WHICH_BOOK = "";
     public Processing(String bookName){
         WHICH_BOOK = bookName;
-        System.out.print("\n***" + WHICH_BOOK + "***\n");
     }
     public static void printLinedTime(String text, long startTime){
         System.out.print(text);
 
         int targetColumn = 40;
         int spacesToAdd = targetColumn - text.length();
-        for (int i = 0; i < spacesToAdd; i++) {
+        for (int i = 0; i < spacesToAdd; ++i) {
             System.out.print(' ');
         }
 
@@ -34,7 +33,7 @@ public class Processing {
 
         int targetColumn = 40;
         int spacesToAdd = targetColumn - text.length();
-        for (int i = 0; i < spacesToAdd; i++) {
+        for (int i = 0; i < spacesToAdd; ++i) {
             System.out.print(' ');
         }
 

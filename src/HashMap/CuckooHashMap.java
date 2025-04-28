@@ -34,7 +34,7 @@ public class CuckooHashMap<K, V> implements Serializable {
         Random rand = new Random();
         List<HashFunction<K>> functions = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; ++i) {
             int a = rand.nextInt(Integer.MAX_VALUE - 1) + 1;
             int b = rand.nextInt(Integer.MAX_VALUE);
             functions.add(new HashFunction(a, b));
@@ -56,7 +56,7 @@ public class CuckooHashMap<K, V> implements Serializable {
 
     private boolean putInternal(K key, V value, int attempt) {
         if (attempt >= MAX_EVICTIONS) {
-            evictionAttempts++;
+            ++evictionAttempts;
             rehash();
             return put(key, value);
         }
@@ -64,7 +64,7 @@ public class CuckooHashMap<K, V> implements Serializable {
         int pos1 = Math.abs(hashFunctions.get(0).apply(key, tableSize)) % tableSize;
         if (table1[pos1] == null) {
             table1[pos1] = new Node<>(key, value);
-            numElements++;
+            ++numElements;
             return true;
         }
         if (table1[pos1].key.equals(key)) {
@@ -75,7 +75,7 @@ public class CuckooHashMap<K, V> implements Serializable {
         int pos2 = Math.abs(hashFunctions.get(1).apply(key, tableSize)) % tableSize;
         if (table2[pos2] == null) {
             table2[pos2] = new Node<>(key, value);
-            numElements++;
+            ++numElements;
             return true;
         }
         if (table2[pos2].key.equals(key)) {

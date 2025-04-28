@@ -138,7 +138,7 @@ public class PerfectHashMap<K, V> implements Serializable {
 
         if (tNode != null && tNode.key.equals(key)) {
             this.rebuiltTable.set(pos, null);
-            for (int i = 0; i < storeTable.size(); i++) {
+            for (int i = 0; i < storeTable.size(); ++i) {
                 Node<K, V> node = storeTable.get(i);
                 if (node.key.equals(key)) {
                     storeTable.remove(i);
