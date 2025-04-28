@@ -1,7 +1,5 @@
 import io.documentnode.epub4j.domain.*;
 import io.documentnode.epub4j.epub.EpubReader;
-
-import javax.swing.text.Document;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

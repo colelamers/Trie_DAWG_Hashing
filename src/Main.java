@@ -17,6 +17,11 @@ public class Main {
             "how12.epub", "how34.epub", "how56.epub",
     };
 
+    static String[] KING_JAMES = new String[] {
+            // King-James Bible
+            "kjb.epub",
+    };
+
     static String[] PLINY = new String[] {
             // Pliny's Natural History
             "nhop1.epub", "nhop2.epub", "nhop3.epub",
@@ -26,7 +31,7 @@ public class Main {
     public static void ProcessTests(List<String> books, String whichBookSet) throws Exception {
 
         Processing p = new Processing(whichBookSet);
-        System.out.println("========================== Default ==========================");
+/*        System.out.print("\n==================== " + whichBookSet + " - Default" + " ==========================");
         System.out.print("\n___ Hash ___\n");
         p.Build_DefaultHash(books);
         System.out.print("\n___ Trie ___\n");
@@ -34,7 +39,7 @@ public class Main {
         System.out.print("\n___ DAWG ___\n");
         p.Build_DefaultHashDAWG(books);
 
-        System.out.println("========================== Custom ==========================");
+        System.out.print("\n==================== " + whichBookSet + " - Custom" + " ==========================");
         System.out.print("\n___ Hash ___\n");
         p.Build_CustomHash(books);
         System.out.print("\n___ Trie ___\n");
@@ -42,15 +47,15 @@ public class Main {
         System.out.print("\n___ DAWG ___\n");
         p.Build_CustomHashDAWG(books);
 
-        System.out.println("========================== Cuckoo ==========================");
+        System.out.print("\n==================== " + whichBookSet + " - Cuckoo" + " ==========================");
         System.out.print("\n___ Hash ___\n");
         p.Build_CuckooHash(books);
         System.out.print("\n___ Trie ___\n");
         p.Build_CuckooTrie(books);
         System.out.print("\n___ DAWG ___\n");
-        p.Build_CuckooHashDAWG(books);
+        p.Build_CuckooHashDAWG(books);*/
 
-        System.out.println("========================== Perfect ==========================");
+        System.out.print("\n==================== " + whichBookSet + " - Perfect" + " ==========================");
         System.out.print("\n___ Hash ___\n");
         p.Build_PerfectHash(books);
         System.out.print("\n___ Trie ___\n");
