@@ -11,8 +11,7 @@ public class PerfectHashMap<K, V> implements Serializable {
     private List<Node<K, V>> rebuiltTable; //
     private int m; // Size of the hash table
     private int r; // Number of nodes in the table
-    private int[] T; // Marked positions for injectivity (used to track collisions)
-    private List<Integer> knownSubHashSeeds = new ArrayList<Integer>();
+    private int[] T; // Marked positions for injectivity for tracking collisions
 
     public PerfectHashMap() {
         this.storeTable = new ArrayList<>();
@@ -39,34 +38,34 @@ public class PerfectHashMap<K, V> implements Serializable {
         Arrays.fill(T, 0); // Fill T with 0 to mark unoccupied slots
         this.rebuiltTable = new ArrayList<>(Collections.nCopies(m, null));
 
-        Map<Integer, List<Node<K, V>>> buckets = new HashMap<>();
-        for (Node<K, V> tNode : storeTable) {
-            int primaryHash = computeHash(tNode.key, m);
-            List<Node<K, V>> bucket = buckets.get(primaryHash);
-            if (bucket == null) {
-                bucket = new ArrayList<>();
-                buckets.put(primaryHash, bucket);
-            }
-            bucket.add(tNode);
+        List<Node<K, V>>[] buckets = new ArrayList[m];
+        for (int i = 0; i < m; ++i) {
+            buckets[i] = new ArrayList<>();
         }
 
-        for (var entry : buckets.entrySet()) {
-            List<Node<K, V>> bucket = entry.getValue();
-            // No collision, just place it in the rebuiltTable
-            Node<K, V> tNode = bucket.get(0);
-            int hash = computeHash(tNode.key, m);
-            if (tNode.key.equals("then")){
-                hash = computeHash(tNode.key, m);
+        for (Node<K, V> tNode : storeTable) {
+            int primaryHash = computeHash(tNode.key, m);
+            buckets[primaryHash].add(tNode);
+        }
 
-            }
-            if (T[hash] == 0) {
-                keyHashLookup.put(tNode.key, hash);
-                this.rebuiltTable.set(hash, tNode);
-                T[hash] = 1;
-            }else{
+
+        for (List<Node<K, V>> bucket : buckets) {
+            // Check if bucket has only 1 element (no collision)
+            if (bucket.size() == 1) {
+                Node<K, V> tNode = bucket.get(0);
+                int hash = computeHash(tNode.key, m);
+                // If slot is empty, put it in the rebuilt table
+                if (T[hash] == 0) {
+                    this.rebuiltTable.set(hash, tNode);
+                    T[hash] = 1;
+                } else {
+                    findInjectiveSubHash(bucket);
+                }
+            } else {
                 findInjectiveSubHash(bucket);
             }
         }
+
 
         if (!validateNoCollisions()){
             throw new Exception("Collision Detected! Not a Perfect HashMap");
