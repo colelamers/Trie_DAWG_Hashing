@@ -252,9 +252,7 @@ public class Processing {
         }
         printLinedTime("Assembly Time: ", startTime);
 
-        long buildTime = System.currentTimeMillis();
         customMap.rebuild();
-        printLinedTime("Rebuild Perfect Hash Time: ", buildTime);
 
         long traversalTime = System.currentTimeMillis();
         for (String sentence : book) {
@@ -291,7 +289,7 @@ public class Processing {
 
         long buildTime = System.currentTimeMillis();
         trie.finalizeTrie();
-        printLinedTime("Rebuild Perfect Hash Time: ", buildTime);
+
 
         long traversalTime = System.currentTimeMillis();
         for (String sentence : book) {
@@ -322,9 +320,7 @@ public class Processing {
         }
         printLinedTime("Assembly Time: ", startTime);
 
-        long buildTime = System.currentTimeMillis();
         dawg.root.rebuild();
-        printLinedTime("Rebuild Perfect Hash Time: ", buildTime);
 
         long traversalTime = System.currentTimeMillis();
         for (String sentence : book) {
